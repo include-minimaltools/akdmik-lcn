@@ -1,6 +1,7 @@
 import { ColumnsType, User } from "models";
 import { Table, TableProps } from "antd";
 import useUser from "../hooks/useUser.";
+import { useSearch } from "hooks";
 
 const columns: ColumnsType<User> = [
   {
@@ -32,11 +33,38 @@ const columns: ColumnsType<User> = [
 
 const UserTable = () => {
   const { users, loading } = useUser();
+  const { searchValue } = useSearch(
+    [
+      {
+        label: "Nombre de Usuarios",
+        options: users?.map((user) => user.username) || [],
+      },
+      {
+        label: "Correos",
+        options:
+          users?.filter((user) => user.email).map((user) => user.email || "") ||
+          [],
+      },
+      {
+        label: "Roles",
+        options: users?.map((user) => user.roleDescription) || [],
+      },
+    ],
+    [users]
+  );
 
   const props: TableProps<User> = {
     columns,
-    dataSource: users,
-    loading
+    dataSource: searchValue
+      ? users?.filter(
+          (x) =>
+            x.username.includes(searchValue) ||
+            x.email?.includes(searchValue) ||
+            x.roleDescription.includes(searchValue)
+        )
+      : users,
+    loading,
+    rowKey: ({ username }) => `row-${username}`,
   };
 
   return <Table {...props} />;

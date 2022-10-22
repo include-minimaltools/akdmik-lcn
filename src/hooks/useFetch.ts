@@ -20,7 +20,7 @@ const useFetch = () => {
       result.data = data.data;
       result.message = data.message;
 
-      message.success(result.message);
+      message.success(result.message, 0.75);
     } catch (error) {
       if (error instanceof CanceledError<ErrorResponse>) {
         message.info("Se ha cancelado la petición de datos");
