@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Row } from "antd";
+import { Button, Modal, Row } from "antd";
 import { useService } from "hooks";
 import { Role } from "models";
 import { RoleModal, RoleTable } from "modules/admin/components";
@@ -25,9 +25,15 @@ const RolePage: React.FC<RolePageInterface> = () => {
     setIsOpenModal(true);
   }, []);
 
-  const onDelete = useCallback(async (idRole: number) => {
-    const { error } = await remove(idRole);
-    !error && reload();
+  const onDelete = useCallback((id: number) => {
+    Modal.confirm({
+      title: "Eliminar registro",
+      content: "¿Esta seguro que desea eliminar el registro?",
+      onOk: async () => {
+        const { error } = await remove(id);
+        !error && reload();
+      },
+    });
   }, []);
 
   const onNew = useCallback(() => {

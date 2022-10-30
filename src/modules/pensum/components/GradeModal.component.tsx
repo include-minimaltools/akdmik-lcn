@@ -1,8 +1,20 @@
 import { Grade } from "../models";
 import { useGrade } from "../hooks";
-import { FC, memo, useCallback } from "react";
+import { FC, memo, useCallback, useEffect, useState } from "react";
 import { LeftOutlined, SaveOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, Modal, Row, Switch } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Modal,
+  Row,
+  Spin,
+  Switch,
+  Transfer,
+} from "antd";
+import { useService } from "hooks";
+import { getCourses } from "../services";
 
 export interface GradeModalProps {
   grade?: Grade;
@@ -13,14 +25,30 @@ export interface GradeModalProps {
 const { Item } = Form;
 
 const GradeModal: FC<GradeModalProps> = ({ grade, onClose, open }) => {
-  const { create, update, loading } = useGrade({ showInfo: "modal" });
+  const [targetKeys, setTargetKeys] = useState<number[]>([]);
+  const { createWithCourses, updateWithCourses, loading } = useGrade({
+    showInfo: "modal",
+  });
+  const [courses, serviceLoading] = useService(getCourses);
+  console.log(grade);
+
+  useEffect(() => {
+    if (grade?.idCourses) {
+      setTargetKeys(grade.idCourses);
+    }
+  }, [grade]);
 
   const onFinish = useCallback(
     async (values: any) => {
-      const { error } = grade ? await update(values) : await create(values);
+      const { error } = grade
+        ? await updateWithCourses({ ...values, idCourses: targetKeys })
+        : await createWithCourses({
+            ...values,
+            idCourses: targetKeys,
+          });
       if (!error) onClose && onClose(true);
     },
-    [grade]
+    [grade, targetKeys]
   );
 
   return (
@@ -34,54 +62,77 @@ const GradeModal: FC<GradeModalProps> = ({ grade, onClose, open }) => {
       destroyOnClose
       open={open}
     >
-      <Form
-        layout="vertical"
-        scrollToFirstError
-        onFinish={onFinish}
-        initialValues={grade}
-      >
-        <Row gutter={[20, 20]}>
-          <Col flex={1}>
-            <Item label="Descripción" name="idGrade" hidden>
-              <Input />
+      <Spin spinning={serviceLoading}>
+        <Form
+          layout="vertical"
+          scrollToFirstError
+          onFinish={onFinish}
+          initialValues={grade}
+        >
+          <Row gutter={[20, 20]}>
+            <Col flex={1}>
+              <Item label="Descripción" name="idGrade" hidden>
+                <Input />
+              </Item>
+              <Item
+                label="Descripción"
+                name="description"
+                rules={[
+                  {
+                    required: true,
+                    message: "Por favor, introduce un usuario",
+                  },
+                ]}
+              >
+                <Input />
+              </Item>
+            </Col>
+            <Col flex={0.1}>
+              <Item
+                label="Activo"
+                name="active"
+                initialValue={grade?.active || true}
+              >
+                <Switch defaultChecked={grade?.active || true} />
+              </Item>
+            </Col>
+          </Row>
+          <Row justify="center">
+            <Item label="Asignaturas de este grado" name="courses">
+              <Transfer
+                dataSource={courses?.map(
+                  ({ name, active, area, idCourse }) => ({
+                    description: area,
+                    disabled: !active,
+                    key: idCourse,
+                    title: name,
+                  })
+                )}
+                titles={["Disponibles", "Asignadas"]}
+                listStyle={{ width: "13.5rem" }}
+                //@ts-ignore
+                targetKeys={targetKeys}
+                //@ts-ignore
+                onChange={(e) => setTargetKeys(e)}
+                render={(item) => `${item.key}. ${item.title}`}
+              />
             </Item>
-            <Item
-              label="Descripción"
-              name="description"
-              rules={[
-                {
-                  required: true,
-                  message: "Por favor, introduce un usuario",
-                },
-              ]}
+          </Row>
+          <Row justify="space-around">
+            <Button icon={<LeftOutlined />} onClick={() => onClose(false)}>
+              Cancelar
+            </Button>
+            <Button
+              htmlType="submit"
+              type="primary"
+              icon={<SaveOutlined />}
+              loading={loading}
             >
-              <Input />
-            </Item>
-          </Col>
-          <Col flex={1}>
-            <Item
-              label="Activo"
-              name="active"
-              initialValue={grade?.active || true}
-            >
-              <Switch defaultChecked={grade?.active || true} />
-            </Item>
-          </Col>
-        </Row>
-        <Row justify="space-around">
-          <Button icon={<LeftOutlined />} onClick={() => onClose(false)}>
-            Cancelar
-          </Button>
-          <Button
-            htmlType="submit"
-            type="primary"
-            icon={<SaveOutlined />}
-            loading={loading}
-          >
-            {grade ? "Guardar cambios" : "Crear usuario"}
-          </Button>
-        </Row>
-      </Form>
+              {grade ? "Guardar cambios" : "Crear usuario"}
+            </Button>
+          </Row>
+        </Form>
+      </Spin>
     </Modal>
   );
 };

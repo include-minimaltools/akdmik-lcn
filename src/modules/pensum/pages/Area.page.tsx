@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Row } from "antd";
+import { Button, Modal, Row } from "antd";
 import { useService } from "hooks";
 import { Fragment, useCallback, useState } from "react";
 import { AreaModal, AreaTable } from "../components";
@@ -10,7 +10,7 @@ import { getAreas } from "../services";
 const AreaPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [areas, loading, reload] = useService(getAreas);
-  const { remove, loading:eventLoading } = useArea({ showInfo: "modal" });
+  const { remove, loading: eventLoading } = useArea({ showInfo: "modal" });
   const [area, setArea] = useState<Area>();
 
   const onCloseModal = useCallback((refresh: boolean) => {
@@ -23,9 +23,15 @@ const AreaPage = () => {
     setIsOpenModal(true);
   }, []);
 
-  const onDelete = useCallback(async (idRole: number) => {
-    const { error } = await remove(idRole);
-    !error && reload();
+  const onDelete = useCallback((id: number) => {
+    Modal.confirm({
+      title: "Eliminar registro",
+      content: "¿Esta seguro que desea eliminar el registro?",
+      onOk: async () => {
+        const { error } = await remove(id);
+        !error && reload();
+      },
+    });
   }, []);
 
   const onNew = useCallback(() => {

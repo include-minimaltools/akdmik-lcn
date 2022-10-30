@@ -3,22 +3,24 @@ import { useFetch } from "hooks";
 import { useCallback } from "react";
 import {
   createGrade,
+  createGradeWithCourses,
   deleteGrade,
   getGrade,
   getGrades,
   updateGrade,
+  updateGradeWithCourses,
 } from "../services";
 import { optionFetchType } from "hooks/useFetch";
 
 const useGrade = (options: optionFetchType = {}) => {
   const { loading, callEndpoint } = useFetch(options);
 
-  const create = useCallback((Grade: Grade) => {
-    return callEndpoint(createGrade(Grade));
+  const create = useCallback((grade: Grade) => {
+    return callEndpoint(createGrade(grade));
   }, []);
 
-  const update = useCallback((Grade: Grade) => {
-    return callEndpoint(updateGrade(Grade));
+  const update = useCallback((grade: Grade) => {
+    return callEndpoint(updateGrade(grade));
   }, []);
 
   const getAll = useCallback(() => {
@@ -33,12 +35,22 @@ const useGrade = (options: optionFetchType = {}) => {
     return callEndpoint(getGrade(idGrade));
   }, []);
 
+  const createWithCourses = useCallback((grade: Required<Grade>) => {
+    return callEndpoint(createGradeWithCourses(grade));
+  }, []);
+
+  const updateWithCourses = useCallback((grade: Required<Grade>) => {
+    return callEndpoint(updateGradeWithCourses(grade));
+  }, []);
+
   return {
     get,
     getAll,
     create,
     update,
     remove,
+    updateWithCourses,
+    createWithCourses,
     loading,
   };
 };

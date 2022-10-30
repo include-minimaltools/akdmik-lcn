@@ -36,9 +36,29 @@ export const createGrade = (Grade: Grade) => {
   return { call, controller };
 };
 
-export const updateGrade = (Grade: Grade) => {
+export const createGradeWithCourses = (grade: Required<Grade>) => {
   const controller = loadAbort();
-  const call = api.put<ApiResponse>("Grade", Grade, {
+  const call = api.post<ApiResponse>("Grade/GradeWithCourses", grade, {
+    signal: controller.signal,
+    headers,
+  });
+
+  return { call, controller };
+};
+
+export const updateGrade = (grade: Grade) => {
+  const controller = loadAbort();
+  const call = api.put<ApiResponse>("Grade", grade, {
+    signal: controller.signal,
+    headers,
+  });
+
+  return { controller, call };
+};
+
+export const updateGradeWithCourses = (grade: Required<Grade>) => {
+  const controller = loadAbort();
+  const call = api.put<ApiResponse>("Grade/GradeWithCourses", grade, {
     signal: controller.signal,
     headers,
   });
