@@ -34,7 +34,7 @@ const GradeTable: FC<gradeTableProps> = ({
       dataIndex: "idGrade",
     },
     {
-      title: "Rol",
+      title: "Nombre",
       dataIndex: "description",
     },
     {

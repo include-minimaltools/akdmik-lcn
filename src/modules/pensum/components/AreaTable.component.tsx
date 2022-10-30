@@ -34,7 +34,7 @@ const AreaTable: FC<areaTableProps> = ({
       dataIndex: "idArea",
     },
     {
-      title: "Rol",
+      title: "Área",
       dataIndex: "description",
     },
     {

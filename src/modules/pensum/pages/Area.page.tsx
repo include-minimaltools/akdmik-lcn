@@ -44,7 +44,7 @@ const AreaPage = () => {
           onClick={onNew}
           style={{ margin: "1rem" }}
         >
-          Crear área
+          Crear Área
         </Button>
       </Row>
       <AreaTable

@@ -44,7 +44,7 @@ const GradePage = () => {
           onClick={onNew}
           style={{ margin: "1rem" }}
         >
-          Crear área
+          Crear Grado
         </Button>
       </Row>
       <GradeTable
