@@ -1,1 +1,2 @@
-export * from './Area.model';
+export * from "./Area.model";
+export * from "./Course.model";

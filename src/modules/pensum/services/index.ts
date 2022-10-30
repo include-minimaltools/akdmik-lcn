@@ -1,1 +1,2 @@
-export * from './Area.service';
+export * from "./Area.service";
+export * from "./Course.service";
