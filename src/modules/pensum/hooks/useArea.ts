@@ -13,12 +13,12 @@ import { optionFetchType } from "hooks/useFetch";
 const useArea = (options: optionFetchType = {}) => {
   const { loading, callEndpoint } = useFetch(options);
 
-  const create = useCallback((Area: Area) => {
-    return callEndpoint(createArea(Area));
+  const create = useCallback((area: Area) => {
+    return callEndpoint(createArea(area));
   }, []);
 
-  const update = useCallback((Area: Area) => {
-    return callEndpoint(updateArea(Area));
+  const update = useCallback((area: Area) => {
+    return callEndpoint(updateArea(area));
   }, []);
 
   const getAll = useCallback(() => {

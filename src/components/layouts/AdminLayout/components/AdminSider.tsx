@@ -61,6 +61,11 @@ const menuExample: MenuType[] = [
         label: "Grados",
         key: "/pensum/grade",
         icon: "ReconciliationOutlined"
+      },
+      {
+        label: "Parciales",
+        key: "/pensum/partial",
+        icon: "OrderedListOutlined"
       }
     ],
   },

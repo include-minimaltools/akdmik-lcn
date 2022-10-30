@@ -6,6 +6,7 @@ import PensumRoutes from "./pensum.routes";
 const AreaPage = lazy(async () => await import("./pages/Area.page"));
 const CoursePage = lazy(async () => await import("./pages/Course.page"));
 const GradePage = lazy(async () => await import("./pages/Grade.page"));
+const PartialPage = lazy(async () => await import("./pages/Partial.page"));
 
 const PensumModule = () => {
   return (
@@ -21,6 +22,10 @@ const PensumModule = () => {
       <Route
         path={PensumRoutes.grade.replace("/pensum", "")}
         element={<GradePage />}
+      />
+      <Route
+        path={PensumRoutes.partial.replace("/pensum", "")}
+        element={<PartialPage />}
       />
     </Routes>
   );
