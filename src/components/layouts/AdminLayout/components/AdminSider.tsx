@@ -42,6 +42,29 @@ const menuExample: MenuType[] = [
     ],
   },
   {
+    key: "pensum",
+    label: "Pensum",
+    icon: "DeploymentUnitOutlined",
+    type: "divider",
+    children: [
+      {
+        label: "Asignaturas",
+        key: "/pensum/course",
+        icon: "BookOutlined",
+      },
+      {
+        label: "Areas",
+        key: "/pensum/area",
+        icon: "TagOutlined",
+      },
+      {
+        label: "Grados",
+        key: "/pensum/grade",
+        icon: "ReconciliationOutlined"
+      }
+    ],
+  },
+  {
     key: "examples",
     label: "Extras",
     icon: "AuditOutlined",

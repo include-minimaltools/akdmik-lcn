@@ -1,31 +1,31 @@
+import { Area } from "../models";
+import { useArea } from "../hooks";
+import { FC, memo, useCallback } from "react";
 import { LeftOutlined, SaveOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Modal, Row, Switch } from "antd";
-import { Role } from "models";
-import { FC, memo, useCallback } from "react";
-import { useRole } from "../hooks";
 
-export interface UserModalProps {
-  role?: Role;
+export interface AreaModalProps {
+  area?: Area;
   onClose: (refresh: boolean) => any;
   open: boolean;
 }
 
 const { Item } = Form;
 
-const RoleModal: FC<UserModalProps> = ({ role, onClose, open }) => {
-  const { create, update, loading } = useRole({ showInfo: "modal" });
+const AreaModal: FC<AreaModalProps> = ({ area, onClose, open }) => {
+  const { create, update, loading } = useArea({ showInfo: "modal" });
 
   const onFinish = useCallback(
     async (values: any) => {
-      const { error } = role ? await update(values) : await create(values);
+      const { error } = area ? await update(values) : await create(values);
       if (!error) onClose && onClose(true);
     },
-    [role]
+    [area]
   );
 
   return (
     <Modal
-      title={role ? "Editar Usuario" : "Nuevo Usuario"}
+      title={area ? "Editar Área" : "Nuevo Área"}
       closable={!loading}
       maskClosable={!loading}
       keyboard={!loading}
@@ -38,15 +38,11 @@ const RoleModal: FC<UserModalProps> = ({ role, onClose, open }) => {
         layout="vertical"
         scrollToFirstError
         onFinish={onFinish}
-        initialValues={role}
+        initialValues={area}
       >
         <Row gutter={[20, 20]}>
           <Col flex={1}>
-            <Item
-              label="Descripción"
-              name="idRole"
-              hidden
-            >
+            <Item label="Descripción" name="idArea" hidden>
               <Input />
             </Item>
             <Item
@@ -63,8 +59,12 @@ const RoleModal: FC<UserModalProps> = ({ role, onClose, open }) => {
             </Item>
           </Col>
           <Col flex={1}>
-            <Item label="Activo" name="active" initialValue={role?.active || true}>
-              <Switch defaultChecked={role?.active || true} />
+            <Item
+              label="Activo"
+              name="active"
+              initialValue={area?.active || true}
+            >
+              <Switch defaultChecked={area?.active || true} />
             </Item>
           </Col>
         </Row>
@@ -78,7 +78,7 @@ const RoleModal: FC<UserModalProps> = ({ role, onClose, open }) => {
             icon={<SaveOutlined />}
             loading={loading}
           >
-            {role ? "Guardar cambios" : "Crear usuario"}
+            {area ? "Guardar cambios" : "Crear usuario"}
           </Button>
         </Row>
       </Form>
@@ -86,4 +86,4 @@ const RoleModal: FC<UserModalProps> = ({ role, onClose, open }) => {
   );
 };
 
-export default memo(RoleModal);
+export default memo(AreaModal);
