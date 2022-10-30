@@ -1,38 +1,22 @@
 import { ColumnsType, User } from "models";
-import { Table, TableProps } from "antd";
-import useUser from "../hooks/useUser.";
+import { Badge, Button, Row, Table, TableProps } from "antd";
 import { useSearch } from "hooks";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { FC } from "react";
 
-const columns: ColumnsType<User> = [
-  {
-    title: "Usuario",
-    dataIndex: "username",
-  },
-  {
-    title: "Rol",
-    dataIndex: "roleDescription",
-  },
-  {
-    title: "Nombre",
-    dataIndex: "firtName",
-  },
-  {
-    title: "Apellido",
-    dataIndex: "lastName",
-  },
-  {
-    title: "Correo",
-    dataIndex: "email",
-  },
-  {
-    title: "Estado",
-    dataIndex: "status",
-    render: (status) => <>{status}</>,
-  },
-];
+export type userTableProps = {
+  onPressEdit: (user: User) => any;
+  onPressDelete: (username: string) => any;
+  users?: User[];
+  loading: boolean;
+};
 
-const UserTable = () => {
-  const { users, loading } = useUser();
+const UserTable: FC<userTableProps> = ({
+  users,
+  loading,
+  onPressEdit,
+  onPressDelete,
+}) => {
   const { searchValue } = useSearch(
     [
       {
@@ -47,14 +31,70 @@ const UserTable = () => {
       },
       {
         label: "Roles",
-        options: users?.map((user) => user.roleDescription) || [],
+        options: [...new Set(users?.map((user) => user.roleDescription) || [])],
       },
     ],
     [users]
   );
 
+  const columns: ColumnsType<User> = [
+    {
+      title: "Usuario",
+      dataIndex: "username",
+    },
+    {
+      title: "Rol",
+      dataIndex: "roleDescription",
+    },
+    {
+      title: "Nombre",
+      dataIndex: "firstName",
+    },
+    {
+      title: "Apellido",
+      dataIndex: "lastName",
+    },
+    {
+      title: "Correo",
+      dataIndex: "email",
+    },
+    {
+      title: "Estado",
+      dataIndex: "status",
+      render: (_, { status }) => {
+        return (
+          <Badge
+            status={status === "A" ? "success" : "default"}
+            text={status === "A" ? "Activo" : "Inactivo"}
+          />
+        );
+      },
+    },
+    {
+      dataIndex: "username",
+      render: (username, user) => (
+        <Row justify="space-around">
+          <Button
+            type="link"
+            size="small"
+            icon={<EditOutlined />}
+            onClick={() => onPressEdit(user)}
+          />
+          <Button
+            type="link"
+            size="small"
+            icon={<DeleteOutlined />}
+            onClick={() => onPressDelete(username)}
+            danger
+            disabled={user.status === "I"}
+          />
+        </Row>
+      ),
+    },
+  ];
+
   const props: TableProps<User> = {
-    columns,
+    columns: columns,
     dataSource: searchValue
       ? users?.filter(
           (x) =>
@@ -65,6 +105,10 @@ const UserTable = () => {
       : users,
     loading,
     rowKey: ({ username }) => `row-${username}`,
+    pagination: {
+      style: { margin: "10px" },
+      hideOnSinglePage: true,
+    },
   };
 
   return <Table {...props} />;

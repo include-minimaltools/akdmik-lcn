@@ -1,9 +1,13 @@
-import { message } from "antd";
+import { message, Modal } from "antd";
 import { AxiosError, CanceledError } from "axios";
 import type { ErrorResponse, AxiosCall, ApiResponse } from "models";
 import { useEffect, useState } from "react";
 
-const useFetch = () => {
+export type optionFetchType = {
+  showInfo?: "modal" | "message";
+};
+
+const useFetch = ({ showInfo }: optionFetchType = {}) => {
   const [loading, setLoading] = useState(false);
   let controller: AbortController;
 
@@ -20,15 +24,33 @@ const useFetch = () => {
       result.data = data.data;
       result.message = data.message;
 
-      message.success(result.message, 0.75);
+      if (showInfo == "message") message.success(result.message, 0.75);
+      else if (showInfo == "modal")
+        Modal.success({
+          title: result.message,
+          maskClosable: true
+        });
     } catch (error) {
       if (error instanceof CanceledError<ErrorResponse>) {
         message.info("Se ha cancelado la petición de datos");
       } else if (error instanceof AxiosError<ErrorResponse>) {
         const { response } = error as AxiosError<ErrorResponse>;
         result.error = true;
-        result.message = response?.data.detail || error.message;
-        message.error(result.message);
+
+        // console.log(response);
+        result.message =
+          Object.values(response?.data.errors || {}).join("\n") ||
+          response?.data?.message ||
+          response?.data.detail ||
+          response?.data.title ||
+          error.message;
+
+        if (showInfo == "modal")
+          Modal.error({
+            title: "Ha ocurrido un error",
+            content: result.message,
+          });
+        else if (showInfo == "message") message.error(result.message);
       }
     } finally {
       setLoading(false);

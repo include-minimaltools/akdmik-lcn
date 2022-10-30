@@ -1,14 +1,14 @@
-import type { ApiResponse, User } from "models";
+import type { ApiResponse, Role } from "models";
 import { api, getToken, loadAbort } from "utils";
-import type { UserListResponse, UserResponse } from "../models";
+import type { RoleListResponse, RoleResponse } from "../models";
 
 const headers = {
   Authorization: `Bearer ${getToken()}`,
 };
 
-export const getUsers = () => {
+export const getRoles = () => {
   const controller = loadAbort();
-  const call = api.get<UserListResponse>("Auth/User", {
+  const call = api.get<RoleListResponse>("Role", {
     signal: controller.signal,
     headers,
   });
@@ -16,9 +16,9 @@ export const getUsers = () => {
   return { call, controller };
 };
 
-export const getUser = (username: string) => {
+export const getRole = (idRole: number) => {
   const controller = loadAbort();
-  const call = api.get<UserResponse>(`Auth/User/${username}`, {
+  const call = api.get<RoleResponse>(`Role/${idRole}`, {
     signal: controller.signal,
     headers,
   });
@@ -26,9 +26,9 @@ export const getUser = (username: string) => {
   return { call, controller };
 };
 
-export const createUser = (user: User) => {
+export const createRole = (role: Role) => {
   const controller = loadAbort();
-  const call = api.post<ApiResponse>("Auth/User", user, {
+  const call = api.post<ApiResponse>("Role", role, {
     signal: controller.signal,
     headers,
   });
@@ -36,9 +36,9 @@ export const createUser = (user: User) => {
   return { call, controller };
 };
 
-export const updateUser = (user: User) => {
+export const updateRole = (role: Role) => {
   const controller = loadAbort();
-  const call = api.put<ApiResponse>("Auth/User", user, {
+  const call = api.put<ApiResponse>("Role", role, {
     signal: controller.signal,
     headers,
   });
@@ -46,9 +46,9 @@ export const updateUser = (user: User) => {
   return { controller, call };
 };
 
-export const deleteUser = (username: string) => {
+export const deleteRole = (idRole: number) => {
   const controller = loadAbort();
-  const call = api.delete<ApiResponse>(`Auth/User/${username}`, {
+  const call = api.delete<ApiResponse>(`Role/${idRole}`, {
     signal: controller.signal,
     headers,
   });

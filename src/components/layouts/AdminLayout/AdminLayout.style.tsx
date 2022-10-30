@@ -15,3 +15,11 @@ export const TitleSectionStyle = styled.div<{ visible: boolean }>`
   justify-content: center;
   text-align: center;
 `;
+
+export const ContainerStyle = styled.div`
+  flex: 1;
+  margin: 24px 16px 0;
+  overflow: initial;
+  background-color: white;
+  border-radius: 1rem;
+`;

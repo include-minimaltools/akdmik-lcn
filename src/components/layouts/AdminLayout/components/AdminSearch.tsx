@@ -24,10 +24,10 @@ const AdminSearch = () => {
       value={searchValue}
       onChange={(text) => dispatch(setValue(text))}
     >
-      <Input
+      {/* <Input
         placeholder="Buscador"
         prefix={<SearchOutlined style={{ color: "rgba(0,0,0,.25)" }} />}
-      />
+      /> */}
     </AutoComplete>
   );
 };

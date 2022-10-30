@@ -17,6 +17,7 @@ const AdminHeader = () => {
   return (
     <Header
       className="site-layout-background"
+      
       style={{
         padding: "0 10px 0 10px",
         background: "white",
@@ -25,9 +26,7 @@ const AdminHeader = () => {
         gap: "5rem",
       }}
     >
-      <div>
-        <AdminNewButton />
-      </div>
+      <div>{/* <AdminNewButton /> */}</div>
       <div
         style={{
           flex: 1,

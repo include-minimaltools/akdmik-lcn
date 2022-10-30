@@ -1,6 +1,6 @@
 import { Pie } from "@ant-design/charts";
 import { Column, Line } from "@ant-design/plots";
-import { Row, Col, Card } from "antd";
+import { Card } from "antd";
 import { useEffect, useState } from "react";
 import { DashboardStyle } from "./Dashboard.style";
 

@@ -1,7 +1,8 @@
-import { Layout } from "antd";
+import { BackTop, Layout } from "antd";
 import { SplashScreen } from "pages";
 import { FC, Suspense } from "react";
 import { Outlet } from "react-router-dom";
+import { ContainerStyle } from "./AdminLayout.style";
 import { AdminHeader, AdminSider } from "./components";
 
 const { Content, Footer } = Layout;
@@ -12,15 +13,21 @@ const AdminLayout: FC = () => {
       <AdminSider />
       <Layout
         className="site-layout"
-        style={
-          {
-            // marginLeft: isCollapsed ? 80 : 200,
-          }
-        }
+        style={{
+          height: "100vh",
+          overflow: "scroll",
+          display: "flex",
+        }}
       >
         <AdminHeader />
-        <Content
+        <ContainerStyle>
+          <Suspense fallback={<SplashScreen />}>
+            <Outlet />
+          </Suspense>
+        </ContainerStyle>
+        {/* <Content
           style={{
+            flex: 1,
             margin: "24px 16px 0",
             overflow: "initial",
             backgroundColor: "white",
@@ -30,7 +37,7 @@ const AdminLayout: FC = () => {
           <Suspense fallback={<SplashScreen />}>
             <Outlet />
           </Suspense>
-        </Content>
+        </Content> */}
         <Footer style={{ textAlign: "center" }}>
           AKDMIK ©2022 Created by HSC Minimal Tools
         </Footer>

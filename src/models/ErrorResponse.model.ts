@@ -1,6 +1,7 @@
 export type ErrorResponse = {
   detail: string;
-  error: object;
+  errors: object;
+  message?: string;
   status: number;
   title: string;
   traceId: string;
