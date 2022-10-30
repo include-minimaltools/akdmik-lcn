@@ -50,7 +50,7 @@ const CoursePage = () => {
           onClick={onNew}
           style={{ margin: "1rem" }}
         >
-          Crear asignatura
+          Crear Asignatura
         </Button>
       </Row>
       <CourseTable

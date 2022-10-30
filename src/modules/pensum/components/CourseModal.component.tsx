@@ -54,8 +54,8 @@ const CourseModal: FC<CourseModalProps> = ({ course, onClose, open }) => {
           onFinish={onFinish}
           initialValues={course}
         >
-          <Row gutter={[20, 20]}>
-            <Col span={12}>
+          <Row gutter={[20, 0]}>
+            <Col span={20}>
               <Item label="Descripción" name="idCourse" hidden>
                 <Input />
               </Item>
@@ -65,12 +65,14 @@ const CourseModal: FC<CourseModalProps> = ({ course, onClose, open }) => {
                 rules={[
                   {
                     required: true,
-                    message: "Por favor, introduce un usuario",
+                    message: "Por favor, introduce un nombre para asignatura",
                   },
                 ]}
               >
                 <Input />
               </Item>
+            </Col>
+            <Col span={4}>
               <Item
                 label="Activo"
                 name="active"
@@ -79,14 +81,23 @@ const CourseModal: FC<CourseModalProps> = ({ course, onClose, open }) => {
                 <Switch defaultChecked={course?.active || true} />
               </Item>
             </Col>
-            <Col span={12}>
-              <Item label="Area" name="idArea">
+            <Col span={24}>
+              <Item
+                label="Area"
+                name="idArea"
+                rules={[
+                  {
+                    required: true,
+                    message: "Por favor, selecciona una área",
+                  },
+                ]}
+              >
                 <Select
                   showSearch
                   defaultValue={course?.area}
                   optionFilterProp="label"
                   autoClearSearchValue
-                  placeholder="Seleccionar un rol"
+                  placeholder="Seleccionar una área"
                   options={areas?.map(({ description, idArea, active }) => ({
                     value: idArea,
                     disabled: !active,

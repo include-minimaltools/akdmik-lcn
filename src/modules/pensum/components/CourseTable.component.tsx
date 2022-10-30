@@ -43,6 +43,7 @@ const CourseTable: FC<courseTableProps> = ({
     },
     {
       title: "Estado",
+      width: 100,
       dataIndex: "active",
       render: (_, { active }) => {
         return (
@@ -55,6 +56,7 @@ const CourseTable: FC<courseTableProps> = ({
     },
     {
       dataIndex: "idCourse",
+      width: 100,
       render: (idCourse, course) => (
         <Row justify="space-around">
           <Button

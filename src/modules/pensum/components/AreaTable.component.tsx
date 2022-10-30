@@ -39,6 +39,7 @@ const AreaTable: FC<areaTableProps> = ({
     },
     {
       title: "Estado",
+      width: 100,
       dataIndex: "active",
       render: (_, { active }) => {
         return (
@@ -51,6 +52,7 @@ const AreaTable: FC<areaTableProps> = ({
     },
     {
       dataIndex: "idArea",
+      width: 100,
       render: (idArea, area) => (
         <Row justify="space-around">
           <Button

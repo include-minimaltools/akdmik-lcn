@@ -41,7 +41,7 @@ const PartialModal: FC<PartialModalProps> = ({ partial, onClose, open }) => {
         initialValues={partial}
       >
         <Row gutter={[20, 20]}>
-          <Col span={12}>
+          <Col span={20}>
             <Item label="Descripción" name="idPartial" hidden>
               <Input />
             </Item>
@@ -58,7 +58,7 @@ const PartialModal: FC<PartialModalProps> = ({ partial, onClose, open }) => {
               <Input />
             </Item>
           </Col>
-          <Col span={12}>
+          <Col span={4}>
             <Item
               label="Activo"
               name="active"

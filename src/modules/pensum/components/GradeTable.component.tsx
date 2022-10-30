@@ -2,8 +2,9 @@ import { FC } from "react";
 import { Grade } from "../models";
 import { useSearch } from "hooks";
 import { ColumnsType } from "models";
-import { Badge, Button, Row, Table, TableProps } from "antd";
+import { Badge, Button, Row, Table, TableProps, Tag } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { render } from "react-dom";
 
 export type gradeTableProps = {
   onPressEdit: (grade: Grade) => any;
@@ -38,16 +39,26 @@ const GradeTable: FC<gradeTableProps> = ({
       dataIndex: "description",
     },
     {
+      title: "Asignaturas",
+      dataIndex: "nameCourses",
+      width: "100px",
+      render: (_, { nameCourses }) => (
+        <Row gutter={[10, 10]} justify="space-around">
+          {nameCourses?.map((course) => (
+            <Tag>{course}</Tag>
+          ))}
+        </Row>
+      ),
+    },
+    {
       title: "Estado",
       dataIndex: "active",
-      render: (_, { active }) => {
-        return (
-          <Badge
-            status={active ? "success" : "default"}
-            text={active ? "Activo" : "Inactivo"}
-          />
-        );
-      },
+      render: (_, { active }) => (
+        <Badge
+          status={active ? "success" : "default"}
+          text={active ? "Activo" : "Inactivo"}
+        />
+      ),
     },
     {
       dataIndex: "idGrade",

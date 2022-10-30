@@ -4,6 +4,7 @@ export type Grade = {
   idGrade: string;
   description: string;
   active: boolean;
+  nameCourses?: string[];
   idCourses?: number[];
 };
 

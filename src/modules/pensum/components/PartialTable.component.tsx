@@ -39,6 +39,7 @@ const PartialTable: FC<partialTableProps> = ({
     },
     {
       title: "Estado",
+      width: 100,
       dataIndex: "active",
       render: (_, { active }) => {
         return (
@@ -51,6 +52,7 @@ const PartialTable: FC<partialTableProps> = ({
     },
     {
       dataIndex: "idPartial",
+      width: 100,
       render: (idPartial, partial) => (
         <Row justify="space-around">
           <Button

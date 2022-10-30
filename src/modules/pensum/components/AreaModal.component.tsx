@@ -41,7 +41,7 @@ const AreaModal: FC<AreaModalProps> = ({ area, onClose, open }) => {
         initialValues={area}
       >
         <Row gutter={[20, 20]}>
-          <Col flex={1}>
+          <Col span={20}>
             <Item label="Descripción" name="idArea" hidden>
               <Input />
             </Item>
@@ -51,14 +51,14 @@ const AreaModal: FC<AreaModalProps> = ({ area, onClose, open }) => {
               rules={[
                 {
                   required: true,
-                  message: "Por favor, introduce un usuario",
+                  message: "Por favor, introduce una descripción",
                 },
               ]}
             >
               <Input />
             </Item>
           </Col>
-          <Col flex={1}>
+          <Col span={4}>
             <Item
               label="Activo"
               name="active"

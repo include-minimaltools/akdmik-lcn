@@ -80,7 +80,7 @@ const GradeModal: FC<GradeModalProps> = ({ grade, onClose, open }) => {
                 rules={[
                   {
                     required: true,
-                    message: "Por favor, introduce un usuario",
+                    message: "Por favor, introduce una descripción",
                   },
                 ]}
               >
