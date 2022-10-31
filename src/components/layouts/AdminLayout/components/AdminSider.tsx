@@ -60,52 +60,44 @@ const menuExample: MenuType[] = [
       {
         label: "Grados",
         key: "/pensum/grade",
-        icon: "ReconciliationOutlined"
+        icon: "ReconciliationOutlined",
       },
       {
         label: "Parciales",
         key: "/pensum/partial",
-        icon: "OrderedListOutlined"
-      }
+        icon: "OrderedListOutlined",
+      },
     ],
   },
   {
-    key: "examples",
-    label: "Extras",
-    icon: "AuditOutlined",
+    key: "student",
+    label: "Info Estudiantil",
+    icon: "FolderOpenOutlined",
     type: "divider",
     children: [
       {
-        label: "Item 1",
-        key: "g1",
-        type: "group",
-        children: [
-          {
-            label: "Option 1",
-            key: "o1",
-          },
-          {
-            label: "Option 2",
-            key: "o2",
-          },
-        ],
+        label: "Estudiantes",
+        key: "/student/information",
+        icon: "TeamOutlined",
       },
       {
-        label: "Item 2",
-        key: "g2",
-        type: "group",
-        children: [
-          {
-            label: "Option 3",
-            key: "o3",
-          },
-          {
-            label: "Option 4",
-            key: "o4",
-          },
-        ],
+        label: "Familiar",
+        key: "/student/parent",
+        icon: "PartitionOutlined",
+      },
+      {
+        label: "Parentescos",
+        key: "/student/relationship",
+        icon: "LinkOutlined",
       },
     ],
+  },
+  {
+    key: "school-report",
+    label: "Registro de Notas",
+    icon: "SolutionOutlined",
+    type: "divider",
+    children: [],
   },
 ];
 
