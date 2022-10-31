@@ -3,10 +3,12 @@ import { useFetch } from "hooks";
 import { useCallback } from "react";
 import {
   createStudent,
+  createStudentWithParents,
   deleteStudent,
   getStudent,
   getStudents,
   updateStudent,
+  updateStudentWithParents,
 } from "../services";
 import { optionFetchType } from "hooks/useFetch";
 
@@ -17,8 +19,16 @@ const useStudent = (options: optionFetchType = {}) => {
     return callEndpoint(createStudent(student));
   }, []);
 
+  const createWithParents = useCallback((student: Student) => {
+    return callEndpoint(createStudentWithParents(student));
+  }, []);
+
   const update = useCallback((student: Student) => {
     return callEndpoint(updateStudent(student));
+  }, []);
+
+  const updateWithParents = useCallback((student: Student) => {
+    return callEndpoint(updateStudentWithParents(student));
   }, []);
 
   const getAll = useCallback(() => {
@@ -37,7 +47,9 @@ const useStudent = (options: optionFetchType = {}) => {
     get,
     getAll,
     create,
+    createWithParents,
     update,
+    updateWithParents,
     remove,
     loading,
   };

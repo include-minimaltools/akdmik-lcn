@@ -30,24 +30,44 @@ const StudentTable: FC<studentTableProps> = ({
 
   const columns: ColumnsType<Student> = [
     {
-      title: "Id",
+      title: "Código",
       dataIndex: "idStudent",
     },
     {
-      title: "Área",
-      dataIndex: "description",
+      title: "Nombre",
+      dataIndex: "name",
+    },
+    {
+      title: "Apellido",
+      dataIndex: "lastName",
+    },
+    {
+      title: "Género",
+      dataIndex: "gender",
+      render: (gender) => (gender === "M" ? "Masculino" : "Femenino"),
     },
     {
       title: "Estado",
       width: 100,
       dataIndex: "active",
       render: (_, { status }) => {
-        return (
-          <Badge
-            status={status == "A" ? "success" : "default"}
-            text={status == "A" ? "Activo" : "Inactivo o Egresado"}
-          />
-        );
+        const badgeProps = {
+          A: {
+            status: "processing",
+            text: "Activo",
+          },
+          I: {
+            status: "default",
+            text: "Inactivo",
+          },
+          G: {
+            status: "success",
+            text: "Egresado",
+          },
+        };
+
+        //@ts-ignore
+        return <Badge {...badgeProps[status]} />;
       },
     },
     {

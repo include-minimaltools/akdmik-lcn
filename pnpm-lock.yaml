@@ -12,6 +12,7 @@ specifiers:
   '@vitejs/plugin-react': ^2.1.0
   antd: ^4.23.5
   axios: ^1.1.3
+  moment: ^2.29.4
   react: ^18.2.0
   react-dom: ^18.2.0
   react-redux: ^8.0.4
@@ -28,6 +29,7 @@ dependencies:
   '@reduxjs/toolkit': 1.8.6_kuo2ie247izvzll3jejufdtq3q
   antd: 4.23.5_biqbaboplfbrettd7655fr4n2y
   axios: 1.1.3
+  moment: 2.29.4
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-redux: 8.0.4_yfr4m6wk75wdra335rld4tkrbu

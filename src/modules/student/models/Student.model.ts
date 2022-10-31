@@ -10,6 +10,7 @@ export type Student = {
   phoneNumber?: string;
   address?: string;
   status: "A" | "I" | "G";
+  idParents?: number[];
 };
 
 export type StudentListResponse = ApiResponse<Student[]>;

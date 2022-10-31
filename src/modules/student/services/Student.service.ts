@@ -36,9 +36,29 @@ export const createStudent = (student: Student) => {
   return { call, controller };
 };
 
+export const createStudentWithParents = (student: Student) => {
+  const controller = loadAbort();
+  const call = api.post<ApiResponse>("Student/StudentWithParents", student, {
+    signal: controller.signal,
+    headers,
+  });
+
+  return { call, controller };
+};
+
 export const updateStudent = (student: Student) => {
   const controller = loadAbort();
   const call = api.put<ApiResponse>("Student", student, {
+    signal: controller.signal,
+    headers,
+  });
+
+  return { controller, call };
+};
+
+export const updateStudentWithParents = (student: Student) => {
+  const controller = loadAbort();
+  const call = api.put<ApiResponse>("Student/StudentWithParents", student, {
     signal: controller.signal,
     headers,
   });

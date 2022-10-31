@@ -41,7 +41,11 @@ const StudentPage = () => {
 
   return (
     <Fragment>
-      <StudentModal open={isOpenModal} onClose={onCloseModal} student={student} />
+      <StudentModal
+        open={isOpenModal}
+        onClose={onCloseModal}
+        student={student}
+      />
       <Row justify="end">
         <Button
           type="primary"
@@ -50,7 +54,7 @@ const StudentPage = () => {
           onClick={onNew}
           style={{ margin: "1rem" }}
         >
-          Añadir Familiar
+          Añadir Estudiante
         </Button>
       </Row>
       <StudentTable
