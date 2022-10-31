@@ -1,14 +1,14 @@
 import type { ApiResponse } from "models";
 import { api, getToken, loadAbort } from "utils";
-import type { AreaListResponse, AreaResponse, Area } from "../models";
+import type { ParentListResponse, ParentResponse, Parent } from "../models";
 
 const headers = {
   Authorization: `Bearer ${getToken()}`,
 };
 
-export const getAreas = () => {
+export const getParents = () => {
   const controller = loadAbort();
-  const call = api.get<AreaListResponse>("Area", {
+  const call = api.get<ParentListResponse>("Parent", {
     signal: controller.signal,
     headers,
   });
@@ -16,9 +16,9 @@ export const getAreas = () => {
   return { call, controller };
 };
 
-export const getArea = (idArea: number) => {
+export const getParent = (idParent: number) => {
   const controller = loadAbort();
-  const call = api.get<AreaResponse>(`Area/${idArea}`, {
+  const call = api.get<ParentResponse>(`Parent/${idParent}`, {
     signal: controller.signal,
     headers,
   });
@@ -26,9 +26,9 @@ export const getArea = (idArea: number) => {
   return { call, controller };
 };
 
-export const createArea = (area: Area) => {
+export const createParent = (parent: Parent) => {
   const controller = loadAbort();
-  const call = api.post<ApiResponse>("Area", area, {
+  const call = api.post<ApiResponse>("Parent", parent, {
     signal: controller.signal,
     headers,
   });
@@ -36,9 +36,9 @@ export const createArea = (area: Area) => {
   return { call, controller };
 };
 
-export const updateArea = (area: Area) => {
+export const updateParent = (parent: Parent) => {
   const controller = loadAbort();
-  const call = api.put<ApiResponse>("Area", area, {
+  const call = api.put<ApiResponse>("Parent", parent, {
     signal: controller.signal,
     headers,
   });
@@ -46,9 +46,9 @@ export const updateArea = (area: Area) => {
   return { controller, call };
 };
 
-export const deleteArea = (idArea: number) => {
+export const deleteParent = (idParent: number) => {
   const controller = loadAbort();
-  const call = api.delete<ApiResponse>(`Area/${idArea}`, {
+  const call = api.delete<ApiResponse>(`Parent/${idParent}`, {
     signal: controller.signal,
     headers,
   });

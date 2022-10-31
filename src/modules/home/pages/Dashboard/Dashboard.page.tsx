@@ -1,6 +1,7 @@
 import { Pie } from "@ant-design/charts";
+import { ArrowUpOutlined } from "@ant-design/icons";
 import { Column, Line } from "@ant-design/plots";
-import { Card } from "antd";
+import { Card, Statistic } from "antd";
 import { useEffect, useState } from "react";
 import { DashboardStyle } from "./Dashboard.style";
 
@@ -128,7 +129,7 @@ const DashboardPage = () => {
         formatter: (v: any) => `${(v / 10e8).toFixed(1)} B`,
       },
     },
-    
+
     legend: {
       position: "top",
     },
@@ -144,15 +145,72 @@ const DashboardPage = () => {
 
   return (
     <DashboardStyle>
-      <Card className="first-graph" hoverable>
-        <Line {...lineConfig} />
-      </Card>
-      <Card hoverable>
-        <Column {...barConfig} />;
-      </Card>
-      <Card hoverable>
-        <Pie {...config} />
-      </Card>
+      <div className="statistics-section">
+        <Card hoverable>
+          <Statistic
+            title="Estudiantes Activos"
+            value={11.28}
+            precision={2}
+            // valueStyle={{ color: "#3f8600" }}
+            // prefix={<ArrowUpOutlined />}
+            // suffix="%"
+          />
+        </Card>
+        <Card hoverable>
+          <Statistic
+            title="Asignaturas"
+            value={11.28}
+            precision={2}
+            // valueStyle={{ color: "#3f8600" }}
+            // prefix={<ArrowUpOutlined />}
+            // suffix="%"
+          />
+        </Card>
+        <Card hoverable>
+          <Statistic
+            title="Familiares"
+            value={11.28}
+            precision={2}
+            // valueStyle={{ color: "#3f8600" }}
+            // prefix={<ArrowUpOutlined />}
+            // suffix="%"
+          />
+        </Card>
+        <Card hoverable>
+          <Statistic
+            title="Años Lectivos"
+            value={11.28}
+            precision={2}
+            // valueStyle={{ color: "#3f8600" }}
+            // prefix={<ArrowUpOutlined />}
+            // suffix="%"
+          />
+        </Card>
+        <Card hoverable>
+          <Statistic
+            title="Usuarios Activos"
+            value={11.28}
+            precision={2}
+            // valueStyle={{ color: "#3f8600" }}
+            // prefix={<ArrowUpOutlined />}
+            // suffix="%"
+          />
+        </Card>
+      </div>
+      <div className="graphics-section">
+        <Card className="first-graph" hoverable>
+          {/* @ts-ignore */}
+          <Line {...lineConfig} />
+        </Card>
+        <Card hoverable>
+          {/* @ts-ignore */}
+          <Column {...barConfig} />;
+        </Card>
+        <Card hoverable>
+          {/* @ts-ignore */}
+          <Pie {...config} />
+        </Card>
+      </div>
     </DashboardStyle>
   );
 };

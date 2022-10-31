@@ -8,6 +8,7 @@ const AuthModule = lazy(() => import("modules/auth"));
 const HomeModule = lazy(() => import("modules/home"));
 const AdminModule = lazy(() => import("modules/admin"));
 const PensumModule = lazy(() => import("modules/pensum"));
+const StudentModule = lazy(() => import("modules/student"));
 
 const App: FC = () => {
   const { isAuthenticated } = useReduxAuth();
@@ -20,6 +21,7 @@ const App: FC = () => {
             <Route element={<AdminLayout />}>
               <Route path="/admin/*" element={<AdminModule />} />
               <Route path="/pensum/*" element={<PensumModule />} />
+              <Route path="/student/*" element={<StudentModule />} />
               <Route path="*" element={<HomeModule />} />
             </Route>
           ) : (

@@ -92,13 +92,6 @@ const menuExample: MenuType[] = [
       },
     ],
   },
-  {
-    key: "school-report",
-    label: "Registro de Notas",
-    icon: "SolutionOutlined",
-    type: "divider",
-    children: [],
-  },
 ];
 
 const createItem = ({
