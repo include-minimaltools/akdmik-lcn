@@ -2,7 +2,7 @@ import { PlusOutlined, WarningOutlined } from "@ant-design/icons";
 import { Button, Modal, Row } from "antd";
 import { TableProvider } from "context";
 import { useService } from "hooks";
-import { Fragment, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { AcademicYearModal, AcademicYearTable } from "../components";
 import { useAcademicYear } from "../hooks";
 import { AcademicYear } from "../models";
@@ -11,7 +11,12 @@ import { getAcademicYears } from "../services";
 const AcademicYearPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [academicYears, loading, reload] = useService(getAcademicYears);
-  const { disable, loading: eventLoading } = useAcademicYear({
+  const {
+    disable,
+    finish,
+    finishWithPartials,
+    loading: eventLoading,
+  } = useAcademicYear({
     showInfo: "modal",
   });
   const [academicYear, setAcademicYear] = useState<AcademicYear>();
@@ -28,8 +33,27 @@ const AcademicYearPage = () => {
       content:
         "¿Está seguro que desea finalizar el año lectivo?. Esta acción es irreversible",
       onOk: async () => {
-        // const { error } = await disable(id);
-        reload();
+        const { message, error } = await finish(id, "none");
+
+        if (error && message.includes("Existen parciales en curso"))
+          return Modal.confirm({
+            icon: <WarningOutlined />,
+            title: "¡Tiene parciales en curso!",
+            content:
+              "Existen parciales en curso en este año lectivo.\n\n¿Desea finalizar todos los parciales de este curso?",
+            okText: "Si, finalizar todos",
+            onOk: async () => {
+              const { error } = await finishWithPartials(id);
+
+              error || reload();
+            },
+            cancelText: "No",
+          });
+
+        Modal.error({
+          title: "Error",
+          content: message,
+        });
       },
     });
   }, []);
@@ -53,7 +77,7 @@ const AcademicYearPage = () => {
   }, []);
 
   return (
-    <TableProvider value={{ reload }}>
+    <TableProvider reload={reload}>
       <AcademicYearModal
         open={isOpenModal}
         onClose={onCloseModal}

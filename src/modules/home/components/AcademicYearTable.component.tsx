@@ -6,8 +6,6 @@ import { Badge, Button, Row, Table, TableProps, Tooltip } from "antd";
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
-  DeleteOutlined,
-  EditOutlined,
 } from "@ant-design/icons";
 import AcademicYearPartialTable from "./AcademicYearPartialTable.component";
 
@@ -94,7 +92,7 @@ const AcademicYearTable: FC<academicYearTableProps> = ({
               icon={<CloseCircleOutlined />}
               onClick={() => onPressCancel(idAcademicYear)}
               danger
-              disabled={academicYear.status === "C"}
+              disabled={academicYear.status !== "P"}
             />
           </Tooltip>
         </Row>
@@ -109,7 +107,7 @@ const AcademicYearTable: FC<academicYearTableProps> = ({
         <AcademicYearPartialTable
           academicYearPartials={academicYearPartials}
           loading={false}
-          disabled={status === "C"}
+          disabled={status !== "P"}
         />
       ),
     },

@@ -3,15 +3,20 @@ import { AxiosError, CanceledError } from "axios";
 import type { ErrorResponse, AxiosCall, ApiResponse } from "models";
 import { useEffect, useState } from "react";
 
+export type showTypes = "modal" | "message" | "none";
+
 export type optionFetchType = {
-  showInfo?: "modal" | "message";
+  showInfo?: showTypes;
 };
 
-const useFetch = ({ showInfo }: optionFetchType = {}) => {
+const useFetch = ({ showInfo }: optionFetchType = { showInfo: "none" }) => {
   const [loading, setLoading] = useState(false);
   let controller: AbortController;
 
-  const callEndpoint = async <T>(call: AxiosCall<ApiResponse<T>>) => {
+  const callEndpoint = async <T>(
+    call: AxiosCall<ApiResponse<T>>,
+    show = showInfo
+  ) => {
     if (call.controller) controller = call.controller;
 
     setLoading(true);
@@ -24,11 +29,11 @@ const useFetch = ({ showInfo }: optionFetchType = {}) => {
       result.data = data.data;
       result.message = data.message;
 
-      if (showInfo == "message") message.success(result.message, 0.75);
-      else if (showInfo == "modal")
+      if (show == "message") message.success(result.message, 0.75);
+      else if (show == "modal")
         Modal.success({
           title: result.message,
-          maskClosable: true
+          maskClosable: true,
         });
     } catch (error) {
       if (error instanceof CanceledError<ErrorResponse>) {
@@ -45,12 +50,12 @@ const useFetch = ({ showInfo }: optionFetchType = {}) => {
           response?.data.title ||
           error.message;
 
-        if (showInfo == "modal")
+        if (show == "modal")
           Modal.error({
             title: "Ha ocurrido un error",
             content: result.message,
           });
-        else if (showInfo == "message") message.error(result.message);
+        else if (show == "message") message.error(result.message);
       }
     } finally {
       setLoading(false);

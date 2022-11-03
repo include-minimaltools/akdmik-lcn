@@ -5,22 +5,21 @@ import {
   createAcademicYear,
   disableAcademicYear,
   disableAcademicYearPartial,
+  finishAcademicYear,
+  finishAcademicYearPartial,
+  finishAcademicYearWithPartials,
   getAcademicYear,
   getAcademicYears,
   reactivateAcademicYearPartial,
 } from "../services";
-import { optionFetchType } from "hooks/useFetch";
+import { optionFetchType, showTypes } from "hooks/useFetch";
 
-const useAcademicYear = (options: optionFetchType = {}) => {
+const useAcademicYear = (options: optionFetchType = { showInfo: "none" }) => {
   const { loading, callEndpoint } = useFetch(options);
 
   const create = useCallback((academicYear: AcademicYear) => {
     return callEndpoint(createAcademicYear(academicYear));
   }, []);
-
-  // const update = useCallback((academicYear: AcademicYear) => {
-  //   return callEndpoint(updateAcademicYear(academicYear));
-  // }, []);
 
   const getAll = useCallback(() => {
     return callEndpoint(getAcademicYears());
@@ -30,12 +29,24 @@ const useAcademicYear = (options: optionFetchType = {}) => {
     return callEndpoint(disableAcademicYear(idAcademicYear));
   }, []);
 
+  const finish = useCallback((idAcademicYear: number, showType = options.showInfo) => {
+    return callEndpoint(finishAcademicYear(idAcademicYear), showType);
+  }, []);
+
+  const finishWithPartials = useCallback((idAcademicYear: number, showType = options.showInfo) => {
+    return callEndpoint(finishAcademicYearWithPartials(idAcademicYear), showType);
+  }, []);
+  
   const disablePartial = useCallback((idAcademicYearPartial: number) => {
     return callEndpoint(disableAcademicYearPartial(idAcademicYearPartial));
   }, []);
 
   const reactivatePartial = useCallback((idAcademicYearPartial: number) => {
     return callEndpoint(reactivateAcademicYearPartial(idAcademicYearPartial));
+  }, []);
+
+  const finishPartial = useCallback((idAcademicYearPartial: number) => {
+    return callEndpoint(finishAcademicYearPartial(idAcademicYearPartial));
   }, []);
 
   const get = useCallback((idAcademicYear: number) => {
@@ -47,8 +58,11 @@ const useAcademicYear = (options: optionFetchType = {}) => {
     getAll,
     create,
     disable,
+    finish,
+    finishPartial,
     disablePartial,
     reactivatePartial,
+    finishWithPartials,
     loading,
   };
 };

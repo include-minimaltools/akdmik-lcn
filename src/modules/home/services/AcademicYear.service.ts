@@ -1,6 +1,10 @@
 import type { ApiResponse } from "models";
 import { api, getToken, loadAbort } from "utils";
-import type { AcademicYearListResponse, AcademicYearResponse, AcademicYear } from "../models";
+import type {
+  AcademicYearListResponse,
+  AcademicYearResponse,
+  AcademicYear,
+} from "../models";
 
 const headers = {
   Authorization: `Bearer ${getToken()}`,
@@ -46,23 +50,71 @@ export const disableAcademicYear = (idAcademicYear: number) => {
   return { call, controller };
 };
 
+export const finishAcademicYear = (idAcademicYear: number) => {
+  const controller = loadAbort();
+  const call = api.post<ApiResponse>(
+    `AcademicYear/Finish/${idAcademicYear}`,
+    null,
+    {
+      signal: controller.signal,
+      headers,
+    }
+  );
+
+  return { call, controller };
+};
+
+export const finishAcademicYearWithPartials = (idAcademicYear: number) => {
+  const controller = loadAbort();
+  const call = api.post<ApiResponse>(
+    `AcademicYear/FinishWithPartials/${idAcademicYear}`,
+    null,
+    {
+      signal: controller.signal,
+      headers,
+    }
+  );
+
+  return { call, controller };
+};
+
 export const disableAcademicYearPartial = (idAcademicYear: number) => {
   const controller = loadAbort();
-  const call = api.delete<ApiResponse>(`AcademicYear/AcademicYearPartial/${idAcademicYear}`, {
-    signal: controller.signal,
-    headers,
-  });
+  const call = api.delete<ApiResponse>(
+    `AcademicYear/AcademicYearPartial/${idAcademicYear}`,
+    {
+      signal: controller.signal,
+      headers,
+    }
+  );
 
   return { call, controller };
 };
 
 export const reactivateAcademicYearPartial = (idAcademicYear: number) => {
   const controller = loadAbort();
-  const call = api.put<ApiResponse>(`AcademicYear/AcademicYearPartial/${idAcademicYear}`, null,{
-    signal: controller.signal,
-    headers,
-  });
+  const call = api.post<ApiResponse>(
+    `AcademicYear/AcademicYearPartial/Reactivate/${idAcademicYear}`,
+    null,
+    {
+      signal: controller.signal,
+      headers,
+    }
+  );
 
   return { call, controller };
 };
 
+export const finishAcademicYearPartial = (idAcademicYear: number) => {
+  const controller = loadAbort();
+  const call = api.post<ApiResponse>(
+    `AcademicYear/AcademicYearPartial/Finish/${idAcademicYear}`,
+    null,
+    {
+      signal: controller.signal,
+      headers,
+    }
+  );
+
+  return { call, controller };
+};

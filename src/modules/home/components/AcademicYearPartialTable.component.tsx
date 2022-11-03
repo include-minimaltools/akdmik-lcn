@@ -23,6 +23,7 @@ const AcademicYearPartialTable: FC<academicYearPartialTableProps> = ({
 }) => {
   const { reload } = useTable();
   const {
+    finishPartial,
     disablePartial,
     reactivatePartial,
     loading: eventLoading,
@@ -66,6 +67,10 @@ const AcademicYearPartialTable: FC<academicYearPartialTableProps> = ({
               loading={eventLoading}
               icon={<CheckCircleOutlined />}
               disabled={academicYearPartial.status !== "P" || disabled}
+              onClick={async () => {
+                const { error } = await finishPartial(idAcademicYearPartial);
+                error || reload();
+              }}
             />
           </Tooltip>
           <Button
