@@ -7,7 +7,7 @@ type serviceType<T> = () => AxiosCall<ApiResponse<T>>;
 const useService = <T>(
   service: serviceType<T>,
   deps: DependencyList = []
-): [T | undefined, boolean, Function] => {
+): [T | undefined, boolean, () => void] => {
   const [data, setData] = useState<T>();
   const { loading, callEndpoint } = useFetch();
 

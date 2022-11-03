@@ -18,7 +18,8 @@ export default defineConfig({
       models: path.resolve(__dirname, "./src/models"),
       hooks: path.resolve(__dirname, "./src/hooks"),
       "redux-store": path.resolve(__dirname, "./src/redux-store"),
-      helpers: path.resolve(__dirname, "./src/helpers")
+      helpers: path.resolve(__dirname, "./src/helpers"),
+      context : path.resolve(__dirname, "./src/context"),
     },
   },
 });

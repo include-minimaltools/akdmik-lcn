@@ -1,9 +1,8 @@
 import { Pie } from "@ant-design/charts";
-import { ArrowUpOutlined } from "@ant-design/icons";
 import { Column, Line } from "@ant-design/plots";
 import { Card, Statistic } from "antd";
 import { useEffect, useState } from "react";
-import { DashboardStyle } from "./Dashboard.style";
+import { DashboardStyle } from "../style/Dashboard.style";
 
 const data = [
   {

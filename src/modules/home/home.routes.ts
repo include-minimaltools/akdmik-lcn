@@ -1,5 +1,6 @@
 const HomeRoutes = {
-  home: "/"
+  home: "/",
+  academicYear: "academic-year",
 };
 
 export default HomeRoutes;

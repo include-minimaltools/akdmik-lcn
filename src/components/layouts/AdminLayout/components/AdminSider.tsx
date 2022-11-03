@@ -24,6 +24,11 @@ const menuExample: MenuType[] = [
     icon: "PieChartOutlined",
   },
   {
+    label: "Años Lectivos",
+    key: "/academic-year",
+    icon: "CalendarOutlined",
+  },
+  {
     key: "administrator",
     label: "Administración",
     icon: "SlidersOutlined",
