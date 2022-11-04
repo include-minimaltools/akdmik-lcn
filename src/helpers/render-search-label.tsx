@@ -1,14 +1,7 @@
-const renderSearchLabel = (title: string) => (
+const renderSearchLabel = (title: string, results?: number) => (
   <span>
     {title}
-    {/* <a
-      style={{ float: "right" }}
-      href="https://www.google.com/search?q=antd"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      more
-    </a> */}
+    {results !== null && <p style={{ float: "right" }}>Resultados {results}</p>}
   </span>
 );
 
