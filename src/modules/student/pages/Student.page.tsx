@@ -3,7 +3,7 @@ import { Button, Modal, Row } from "antd";
 import { useService } from "hooks";
 import { Fragment, useCallback, useState } from "react";
 import { StudentModal, StudentTable } from "../components";
-import { useStudent } from "../hooks";
+import { useStudent } from "hooks";
 import { Student } from "models";
 import { getStudents } from "services";
 

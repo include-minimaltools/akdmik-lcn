@@ -1,2 +1,2 @@
-export * from './NotFound';
-export * from './SplashScreen';
+export { default as NotFoundPage } from './NotFound.page';
+export { default as SplashScreen } from './Splash.page';

@@ -1,6 +1,6 @@
 import { LoadingOutlined } from "@ant-design/icons";
 import { FC } from "react";
-import { SplashScreenStyle } from "./Splash.style";
+import { SplashScreenStyle } from "styles/Splash.style";
 
 const SplashScreen: FC = () => {
   return (

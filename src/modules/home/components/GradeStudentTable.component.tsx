@@ -1,12 +1,11 @@
 import { DisconnectOutlined, LinkOutlined } from "@ant-design/icons";
 import { Badge, Button, Col, Row, Table, TableColumnsType } from "antd";
 import { TableProps } from "antd/es/table";
-import { TableRowSelection } from "antd/lib/table/interface";
 import { useSearch, useServiceWithParams } from "hooks";
+import { StudentGrade } from "models";
 import { FC, useCallback, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAcademicYear } from "../hooks";
-import { StudentGrade } from "../../../models/StudentGrade.model";
 import { getStudentsByAcademicYearAndGrade } from "../services";
 
 type GradeStudentTableProps = {
