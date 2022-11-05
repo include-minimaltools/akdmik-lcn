@@ -1,4 +1,4 @@
-import { Grade } from "../models";
+import { Grade } from "models";
 import { useGrade } from "../hooks";
 import { FC, memo, useCallback, useEffect, useState } from "react";
 import { LeftOutlined, SaveOutlined } from "@ant-design/icons";

@@ -4,8 +4,8 @@ import { useService } from "hooks";
 import { Fragment, useCallback, useState } from "react";
 import { GradeModal, GradeTable } from "../components";
 import { useGrade } from "../hooks";
-import { Grade } from "../models";
-import { getGrades } from "../services";
+import { Grade } from "models";
+import { getGrades } from "services";
 
 const GradePage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);

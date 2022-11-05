@@ -2,9 +2,9 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button, Modal, Row } from "antd";
 import { useService } from "hooks";
 import { Role } from "models";
-import { RoleModal, RoleTable } from "modules/admin/components";
-import { useRole } from "modules/admin/hooks";
-import { getRoles } from "modules/admin/services";
+import { RoleModal, RoleTable } from "../components";
+import { useRole } from "../hooks";
+import { getRoles } from "../services";
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 export interface RolePageInterface {}

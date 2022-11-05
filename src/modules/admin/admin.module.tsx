@@ -4,8 +4,8 @@ import { Routes } from "components";
 import AdminRoutes from "./admin.routes";
 import { lazy } from "react";
 
-const UserPage = lazy(async () => await import("./pages/User/User.page"));
-const RolePage = lazy(async () => await import("./pages/Role/Role.page"));
+const UserPage = lazy(async () => await import("./pages/User.page"));
+const RolePage = lazy(async () => await import("./pages/Role.page"));
 
 const AuthModule = () => {
   return (

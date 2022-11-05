@@ -1,10 +1,8 @@
 import { FC } from "react";
-import { Grade } from "../models";
 import { useSearch } from "hooks";
-import { ColumnsType } from "models";
+import { ColumnsType, Grade } from "models";
 import { Badge, Button, Row, Table, TableProps, Tag } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { render } from "react-dom";
 
 export type gradeTableProps = {
   onPressEdit: (grade: Grade) => any;

@@ -1,6 +1,6 @@
 import type { ApiResponse } from "models";
 import { api, getToken, loadAbort } from "utils";
-import type { GradeListResponse, GradeResponse, Grade } from "../models";
+import type { GradeListResponse, GradeResponse, Grade } from "models";
 
 const headers = {
   Authorization: `Bearer ${getToken()}`,

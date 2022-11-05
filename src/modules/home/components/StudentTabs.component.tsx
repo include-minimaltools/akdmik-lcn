@@ -1,4 +1,4 @@
-import { Button, Empty, Spin, Tabs, Typography } from "antd";
+import { Empty, Spin, Tabs } from "antd";
 import { useSearch, useServiceWithParams } from "hooks";
 import { getStudentByAcademicYearPartialAndGrade } from "services";
 import { FC } from "react";

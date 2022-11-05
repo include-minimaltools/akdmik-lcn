@@ -1,6 +1,6 @@
-import { UserModal, UserTable } from "../../components";
+import { UserModal, UserTable } from "../components";
 import { FC, useCallback, useState } from "react";
-import { UserStyle } from "./User.style";
+import { UserStyle } from "../styles/User.style";
 import { Button, Row } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { User } from "models";

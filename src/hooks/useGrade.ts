@@ -1,4 +1,4 @@
-import type { Grade } from "../models";
+import type { Grade } from "models";
 import { useFetch } from "hooks";
 import { useCallback } from "react";
 import {
@@ -9,7 +9,7 @@ import {
   getGrades,
   updateGrade,
   updateGradeWithCourses,
-} from "../services";
+} from "services";
 import { optionFetchType } from "hooks/useFetch";
 
 const useGrade = (options: optionFetchType = {}) => {

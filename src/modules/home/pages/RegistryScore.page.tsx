@@ -1,6 +1,6 @@
 import { Spin, Tabs } from "antd";
 import { useService } from "hooks";
-import { getGrades } from "modules/pensum/services";
+import { getGrades } from "services";
 import { StudentTabs } from "../components";
 
 const RegistryScore = () => {
