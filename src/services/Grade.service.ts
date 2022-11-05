@@ -1,6 +1,7 @@
 import type { ApiResponse } from "models";
 import { api, getToken, loadAbort } from "utils";
 import type { GradeListResponse, GradeResponse, Grade } from "models";
+import { CourseListResponse } from "modules/pensum/models";
 
 const headers = {
   Authorization: `Bearer ${getToken()}`,
@@ -69,6 +70,20 @@ export const updateGradeWithCourses = (grade: Required<Grade>) => {
 export const deleteGrade = (idGrade: number) => {
   const controller = loadAbort();
   const call = api.delete<ApiResponse>(`Grade/${idGrade}`, {
+    signal: controller.signal,
+    headers,
+  });
+
+  return { controller, call };
+};
+
+export type getCoursesByGradeProps = {
+  idGrade: number;
+};
+
+export const getCoursesByGrade = ({ idGrade }: getCoursesByGradeProps) => {
+  const controller = loadAbort();
+  const call = api.get<CourseListResponse>(`Grade/${idGrade}/Courses`, {
     signal: controller.signal,
     headers,
   });

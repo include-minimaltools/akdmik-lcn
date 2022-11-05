@@ -1,7 +1,9 @@
 import type { Student } from "models";
 import { useFetch } from "hooks";
 import { useCallback } from "react";
+import type { createSchoolReportWithDetailsProps } from "services";
 import {
+  createSchoolReportWithDetails,
   createStudent,
   createStudentWithParents,
   deleteStudent,
@@ -9,6 +11,7 @@ import {
   getStudents,
   updateStudent,
   updateStudentWithParents,
+  updateSchoolReportWithDetails,
 } from "services";
 import { optionFetchType } from "hooks/useFetch";
 
@@ -43,6 +46,20 @@ const useStudent = (options: optionFetchType = {}) => {
     return callEndpoint(getStudent(idStudent));
   }, []);
 
+  const createSchoolReport = useCallback(
+    (args: createSchoolReportWithDetailsProps) => {
+      return callEndpoint(createSchoolReportWithDetails(args));
+    },
+    []
+  );
+
+  const updateSchoolReport = useCallback(
+    (args: createSchoolReportWithDetailsProps) => {
+      return callEndpoint(updateSchoolReportWithDetails(args));
+    },
+    []
+  );
+
   return {
     get,
     getAll,
@@ -50,6 +67,8 @@ const useStudent = (options: optionFetchType = {}) => {
     createWithParents,
     update,
     updateWithParents,
+    createSchoolReport,
+    updateSchoolReport,
     remove,
     loading,
   };

@@ -1,6 +1,9 @@
 import { Empty, Spin, Tabs } from "antd";
 import { useSearch, useServiceWithParams } from "hooks";
-import { getStudentByAcademicYearPartialAndGrade } from "services";
+import {
+  getCoursesByGrade,
+  getStudentByAcademicYearPartialAndGrade,
+} from "services";
 import { FC } from "react";
 import { Link, useParams } from "react-router-dom";
 import HomeRoutes from "../home.routes";
@@ -18,6 +21,13 @@ const StudentTabs: FC<StudentTabsProps> = ({ idGrade }) => {
     },
     [idAcademicYearPartial, idGrade]
   );
+
+  const [courses, coursesLoading] = useServiceWithParams(
+    getCoursesByGrade,
+    { idGrade },
+    [idGrade]
+  );
+
   const { searchValue } = useSearch(
     [
       {
@@ -36,12 +46,13 @@ const StudentTabs: FC<StudentTabsProps> = ({ idGrade }) => {
     [students]
   );
 
-  if (!students?.length)
+  if (students && !students.length)
     return (
       <Empty
         description={
           <>
             No existen alumnos relacionados a este grado en este año lectivo.
+            <br />
             Para registrar estudiantes en este grado{" "}
             <Link
               to={[HomeRoutes.academicYearStudent, idAcademicYearPartial].join(
@@ -58,7 +69,7 @@ const StudentTabs: FC<StudentTabsProps> = ({ idGrade }) => {
   return (
     <Spin spinning={loading}>
       <Tabs
-        style={{ marginTop: "1rem", height: "74vh", margin: "1rem" }}
+        style={{ marginTop: "1rem", minHeight: "74vh", margin: "1rem" }}
         tabPosition="left"
         items={students
           ?.filter(
@@ -67,10 +78,19 @@ const StudentTabs: FC<StudentTabsProps> = ({ idGrade }) => {
               x.lastName.includes(searchValue) ||
               x.idStudent.includes(searchValue)
           )
-          .map(({ idStudent, status, name, lastName }) => ({
+          .map(({ idStudent, status, name, lastName, idStudentAcademicYear, schoolReport, schoolReportDetails }) => ({
             label: `${name} ${lastName}`,
             key: `tab-${idGrade}-${idStudent}`,
-            children: <CourseScoreContent />,
+            children: (
+              <CourseScoreContent
+                key={`${idStudent}-${idStudentAcademicYear}-${idAcademicYearPartial}`}
+                courses={courses || []}
+                loading={coursesLoading}
+                idStudentAcademicYear={idStudentAcademicYear}
+                schoolReport={schoolReport}
+                schoolReportDetails={schoolReportDetails}
+              />
+            ),
             disabled: status !== "A",
             forceRender: false,
           }))}

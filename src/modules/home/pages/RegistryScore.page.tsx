@@ -18,7 +18,6 @@ const RegistryScore = () => {
           disabled: !active,
           forceRender: false,
         }))}
-        destroyInactiveTabPane
       />
     </Spin>
   );

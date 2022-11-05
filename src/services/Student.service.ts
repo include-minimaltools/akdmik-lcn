@@ -1,9 +1,11 @@
 import type {
   ApiResponse,
   Student,
+  StudentAcademicYearGradeListResponse,
   StudentListResponse,
   StudentResponse,
 } from "models";
+import { SchoolReport, SchoolReportDetail } from "modules/home/models";
 import { api, getToken, loadAbort } from "utils";
 
 const headers = {
@@ -90,13 +92,38 @@ export const getStudentByAcademicYearPartialAndGrade = ({
   idGrade,
 }: getStudentByAcademicYearPartialAndGradeProps) => {
   const controller = loadAbort();
-  const call = api.get<StudentListResponse>(
+  const call = api.get<StudentAcademicYearGradeListResponse>(
     `Student/AcademicYearPartial/${idAcademicYearPartial}/Grade/${idGrade}`,
     {
       signal: controller.signal,
       headers,
     }
   );
+
+  return { call, controller };
+};
+
+export type createSchoolReportWithDetailsProps = {
+  schoolReport: Omit<SchoolReport, "idSchoolReport">;
+  schoolReportDetails: Omit<SchoolReportDetail, "idSchoolReportDetail" | "idSchoolReport">[];
+};
+
+export const createSchoolReportWithDetails = (body: createSchoolReportWithDetailsProps) => {
+  const controller = loadAbort();
+  const call = api.post<ApiResponse>("Student/SchoolReport", body, {
+    signal: controller.signal,
+    headers,
+  });
+
+  return { call, controller };
+};
+
+export const updateSchoolReportWithDetails = (body: createSchoolReportWithDetailsProps) => {
+  const controller = loadAbort();
+  const call = api.put<ApiResponse>("Student/SchoolReport", body, {
+    signal: controller.signal,
+    headers,
+  });
 
   return { call, controller };
 };
