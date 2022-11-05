@@ -12,11 +12,9 @@ import {
   Row,
   Select,
   Spin,
-  Switch,
 } from "antd";
 import { useService } from "hooks";
 import { getPartials } from "modules/pensum/services";
-import moment from "moment";
 
 export interface AcademicYearModalProps {
   academicYear?: AcademicYear;

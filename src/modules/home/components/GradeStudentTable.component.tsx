@@ -6,7 +6,7 @@ import { useSearch, useServiceWithParams } from "hooks";
 import { FC, useCallback, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAcademicYear } from "../hooks";
-import { StudentGrade } from "../models/StudentGrade.model";
+import { StudentGrade } from "../../../models/StudentGrade.model";
 import { getStudentsByAcademicYearAndGrade } from "../services";
 
 type GradeStudentTableProps = {

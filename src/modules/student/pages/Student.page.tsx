@@ -4,8 +4,8 @@ import { useService } from "hooks";
 import { Fragment, useCallback, useState } from "react";
 import { StudentModal, StudentTable } from "../components";
 import { useStudent } from "../hooks";
-import { Student } from "../models";
-import { getStudents } from "../services";
+import { Student } from "models";
+import { getStudents } from "services";
 
 const StudentPage = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);

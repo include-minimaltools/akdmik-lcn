@@ -1,4 +1,4 @@
-import type { Student } from "../models";
+import type { Student } from "models";
 import { useFetch } from "hooks";
 import { useCallback } from "react";
 import {
@@ -9,7 +9,7 @@ import {
   getStudents,
   updateStudent,
   updateStudentWithParents,
-} from "../services";
+} from "services";
 import { optionFetchType } from "hooks/useFetch";
 
 const useStudent = (options: optionFetchType = {}) => {

@@ -5,7 +5,7 @@ import type {
   AcademicYearResponse,
   AcademicYear,
 } from "../models";
-import { StudentGradeListResponse } from "../models/StudentGrade.model";
+import { StudentGradeListResponse } from "../../../models/StudentGrade.model";
 
 const headers = {
   Authorization: `Bearer ${getToken()}`,

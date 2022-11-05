@@ -45,7 +45,7 @@ const GradeTable: FC<gradeTableProps> = ({
       render: (_, { nameCourses }) => (
         <Row gutter={[10, 10]} justify="space-around">
           {nameCourses?.map((course) => (
-            <Tag>{course}</Tag>
+            <Tag key={course}>{course}</Tag>
           ))}
         </Row>
       ),

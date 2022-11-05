@@ -4,7 +4,7 @@ import { useFetch, useReduxAuth } from "hooks";
 import { Authenticate } from "../services";
 
 const LoginForm = () => {
-  const { callEndpoint, loading } = useFetch();
+  const { callEndpoint, loading } = useFetch({ showInfo: "message" });
   const { authenticate } = useReduxAuth();
 
   const onFinish = async ({ username, password }: UserInput) => {

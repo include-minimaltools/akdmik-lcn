@@ -1,4 +1,4 @@
-import { Student } from "../models";
+import { Student } from "models";
 import { useStudent } from "../hooks";
 import { FC, memo, useCallback, useEffect, useState } from "react";
 import { LeftOutlined, SaveOutlined } from "@ant-design/icons";

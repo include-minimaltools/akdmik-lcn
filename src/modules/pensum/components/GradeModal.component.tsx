@@ -30,7 +30,6 @@ const GradeModal: FC<GradeModalProps> = ({ grade, onClose, open }) => {
     showInfo: "modal",
   });
   const [courses, serviceLoading] = useService(getCourses);
-  console.log(grade);
 
   useEffect(() => {
     if (grade?.idCourses) {

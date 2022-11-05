@@ -133,10 +133,6 @@ const AdminSider = () => {
       style={{
         overflow: "auto",
         height: "100vh",
-        // position: "fixed",
-        // left: 0,
-        // top: 0,
-        // bottom: 0,
       }}
       theme="light"
     >
@@ -150,6 +146,7 @@ const AdminSider = () => {
         selectedKeys={[pathname]}
         items={items}
         onSelect={({ key }) => navigate(key)}
+        style={{ paddingBottom: "50px"}}
       />
     </Sider>
   );

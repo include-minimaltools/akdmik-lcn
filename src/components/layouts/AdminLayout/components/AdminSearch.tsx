@@ -22,9 +22,6 @@ const AdminSearch = () => {
 
         const results = items.length;
 
-        console.log(results);
-        
-
         return {
           label: renderSearchLabel(label, results),
           options: items,

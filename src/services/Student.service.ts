@@ -1,6 +1,10 @@
-import type { ApiResponse } from "models";
+import type {
+  ApiResponse,
+  Student,
+  StudentListResponse,
+  StudentResponse,
+} from "models";
 import { api, getToken, loadAbort } from "utils";
-import type { StudentListResponse, StudentResponse, Student } from "../models";
 
 const headers = {
   Authorization: `Bearer ${getToken()}`,
@@ -74,4 +78,25 @@ export const deleteStudent = (idStudent: number) => {
   });
 
   return { controller, call };
+};
+
+export type getStudentByAcademicYearPartialAndGradeProps = {
+  idAcademicYearPartial: number;
+  idGrade: number;
+};
+
+export const getStudentByAcademicYearPartialAndGrade = ({
+  idAcademicYearPartial,
+  idGrade,
+}: getStudentByAcademicYearPartialAndGradeProps) => {
+  const controller = loadAbort();
+  const call = api.get<StudentListResponse>(
+    `Student/AcademicYearPartial/${idAcademicYearPartial}/Grade/${idGrade}`,
+    {
+      signal: controller.signal,
+      headers,
+    }
+  );
+
+  return { call, controller };
 };

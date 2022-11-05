@@ -3,12 +3,15 @@ import { AcademicYearPartial } from "../models";
 import { ColumnsType } from "models";
 import { Badge, Button, Row, Table, TableProps, Tooltip } from "antd";
 import {
+  AuditOutlined,
   CheckCircleOutlined,
   CloseCircleOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
 import { useAcademicYear } from "../hooks";
 import { useTable } from "context";
+import { useNavigate } from "react-router-dom";
+import HomeRoutes from "../home.routes";
 
 export type academicYearPartialTableProps = {
   academicYearPartials?: AcademicYearPartial[];
@@ -22,6 +25,7 @@ const AcademicYearPartialTable: FC<academicYearPartialTableProps> = ({
   disabled = true,
 }) => {
   const { reload } = useTable();
+  const navigate = useNavigate();
   const {
     finishPartial,
     disablePartial,
@@ -42,8 +46,8 @@ const AcademicYearPartialTable: FC<academicYearPartialTableProps> = ({
       render: (_, { status }) => {
         const badgeProps = {
           P: { status: "processing", text: "En Proceso" },
-          C: { status: "error", text: "Cancelado" },
-          F: { status: "success", text: "Completado" },
+          C: { status: "error", text: "Anulado" },
+          F: { status: "success", text: "Finalizado" },
         };
 
         //@ts-ignore
@@ -53,13 +57,13 @@ const AcademicYearPartialTable: FC<academicYearPartialTableProps> = ({
     {
       fixed: "right",
       dataIndex: "idAcademicYearPartial",
-      width: 150,
+      width: 200,
       render: (idAcademicYearPartial, academicYearPartial) => (
         <Row justify="space-around">
           <Tooltip
             color="#fff"
             overlayInnerStyle={{ color: "black" }}
-            title="Finalizar el año lectivo"
+            title="Finalizar Parcial"
           >
             <Button
               type="link"
@@ -73,22 +77,46 @@ const AcademicYearPartialTable: FC<academicYearPartialTableProps> = ({
               }}
             />
           </Tooltip>
-          <Button
-            type="link"
-            size="middle"
-            loading={eventLoading}
-            icon={<ReloadOutlined />}
-            disabled={academicYearPartial.status !== "C" || disabled}
-            onClick={async () => {
-              const { error } = await reactivatePartial(idAcademicYearPartial);
-              error || reload();
-            }}
-          />
           <Tooltip
             placement="topRight"
             color="#fff"
             overlayInnerStyle={{ color: "black" }}
-            title="Inactivar el año lectivo"
+            title="Registrar Notas"
+          >
+            <Button
+              type="link"
+              size="middle"
+              loading={eventLoading}
+              icon={<AuditOutlined />}
+              disabled={academicYearPartial.status !== "P" || disabled}
+              onClick={() => navigate([HomeRoutes.registryScore, idAcademicYearPartial].join("/"))}
+            />
+          </Tooltip>
+          <Tooltip
+            placement="topRight"
+            color="#fff"
+            overlayInnerStyle={{ color: "black" }}
+            title="Reanudar Parcial"
+          >
+            <Button
+              type="link"
+              size="middle"
+              loading={eventLoading}
+              icon={<ReloadOutlined />}
+              disabled={academicYearPartial.status !== "C" || disabled}
+              onClick={async () => {
+                const { error } = await reactivatePartial(
+                  idAcademicYearPartial
+                );
+                error || reload();
+              }}
+            />
+          </Tooltip>
+          <Tooltip
+            placement="topRight"
+            color="#fff"
+            overlayInnerStyle={{ color: "black" }}
+            title="Anular Parcial"
           >
             <Button
               type="link"

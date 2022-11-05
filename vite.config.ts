@@ -20,6 +20,7 @@ export default defineConfig({
       "redux-store": path.resolve(__dirname, "./src/redux-store"),
       helpers: path.resolve(__dirname, "./src/helpers"),
       context : path.resolve(__dirname, "./src/context"),
+      services: path.resolve(__dirname, "./src/services"),
     },
   },
   build: {

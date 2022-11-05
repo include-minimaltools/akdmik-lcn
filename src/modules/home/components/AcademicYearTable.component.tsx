@@ -58,7 +58,7 @@ const AcademicYearTable: FC<academicYearTableProps> = ({
         const badgeProps = {
           P: { status: "processing", text: "En Proceso" },
           C: { status: "error", text: "Cancelado" },
-          F: { status: "success", text: "Completado" },
+          F: { status: "success", text: "Finalizado" },
         };
 
         //@ts-ignore
@@ -74,7 +74,7 @@ const AcademicYearTable: FC<academicYearTableProps> = ({
           <Tooltip
             color="#fff"
             overlayInnerStyle={{ color: "black" }}
-            title="Finalizar el año lectivo"
+            title="Finalizar Año Lectivo"
           >
             <Button
               type="link"
@@ -84,22 +84,28 @@ const AcademicYearTable: FC<academicYearTableProps> = ({
               disabled={academicYear.status !== "P"}
             />
           </Tooltip>
-          <Button
-            type="link"
-            size="middle"
-            icon={<SwapOutlined />}
-            onClick={() =>
-              navigate(
-                [HomeRoutes.academicYearStudent, idAcademicYear].join("/")
-              )
-            }
-            disabled={academicYear.status !== "P"}
-          />
+          <Tooltip
+            color="#fff"
+            overlayInnerStyle={{ color: "black" }}
+            title="Matricular Estudiantes"
+          >
+            <Button
+              type="link"
+              size="middle"
+              icon={<SwapOutlined />}
+              onClick={() =>
+                navigate(
+                  [HomeRoutes.academicYearStudent, idAcademicYear].join("/")
+                )
+              }
+              disabled={academicYear.status !== "P"}
+            />
+          </Tooltip>
           <Tooltip
             placement="topRight"
             color="#fff"
             overlayInnerStyle={{ color: "black" }}
-            title="Inactivar el año lectivo"
+            title="Anular Año Lectivo"
           >
             <Button
               type="link"

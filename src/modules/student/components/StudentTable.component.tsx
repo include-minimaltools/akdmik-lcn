@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Student } from "../models";
+import { Student } from "models";
 import { useSearch } from "hooks";
 import { ColumnsType } from "models";
 import { Badge, Button, Row, Table, TableProps } from "antd";
