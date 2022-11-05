@@ -1,7 +1,7 @@
 import { ApiResponse } from "models";
 
 export type Grade = {
-  idGrade: string;
+  idGrade: number;
   description: string;
   active: boolean;
   nameCourses?: string[];

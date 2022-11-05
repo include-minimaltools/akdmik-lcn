@@ -22,4 +22,8 @@ export default defineConfig({
       context : path.resolve(__dirname, "./src/context"),
     },
   },
+  build: {
+    outDir: "C:\\inetpub\\wwwroot\\akdmik",
+    emptyOutDir: true
+  }
 });

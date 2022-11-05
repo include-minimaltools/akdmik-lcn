@@ -3,6 +3,7 @@ import {
   HeaderState,
   initialSearchState,
   NewButtonState,
+  OptionType,
   SearchState,
 } from "./header.slice";
 
@@ -26,7 +27,7 @@ export const cleanSearchState: CaseReducer<HeaderState, PayloadAction> = (
   _action
 ) => ({ ...state, search: initialSearchState });
 
-export const setOptions: CaseReducer<HeaderState, PayloadAction<string[]>> = (
+export const setOptions: CaseReducer<HeaderState, PayloadAction<OptionType[]>> = (
   state,
   action
 ) => ({ ...state, search: { ...state.search, options: action.payload } });

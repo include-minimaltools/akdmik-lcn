@@ -6,8 +6,11 @@ import { Badge, Button, Row, Table, TableProps, Tooltip } from "antd";
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
+  SwapOutlined,
 } from "@ant-design/icons";
 import AcademicYearPartialTable from "./AcademicYearPartialTable.component";
+import { useNavigate } from "react-router-dom";
+import HomeRoutes from "../home.routes";
 
 export type academicYearTableProps = {
   onPressFinish: (idAcademicYear: number) => any;
@@ -22,6 +25,7 @@ const AcademicYearTable: FC<academicYearTableProps> = ({
   onPressFinish,
   onPressCancel,
 }) => {
+  const navigate = useNavigate();
   const { searchValue } = useSearch(
     [
       {
@@ -64,7 +68,7 @@ const AcademicYearTable: FC<academicYearTableProps> = ({
     {
       fixed: "right",
       dataIndex: "idAcademicYear",
-      width: 100,
+      width: 150,
       render: (idAcademicYear, academicYear) => (
         <Row justify="space-around">
           <Tooltip
@@ -80,6 +84,17 @@ const AcademicYearTable: FC<academicYearTableProps> = ({
               disabled={academicYear.status !== "P"}
             />
           </Tooltip>
+          <Button
+            type="link"
+            size="middle"
+            icon={<SwapOutlined />}
+            onClick={() =>
+              navigate(
+                [HomeRoutes.academicYearStudent, idAcademicYear].join("/")
+              )
+            }
+            disabled={academicYear.status !== "P"}
+          />
           <Tooltip
             placement="topRight"
             color="#fff"

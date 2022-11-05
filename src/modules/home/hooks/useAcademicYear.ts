@@ -11,6 +11,8 @@ import {
   getAcademicYear,
   getAcademicYears,
   reactivateAcademicYearPartial,
+  registerStudentsInAcademicYearGrade,
+  unregisterStudentsInAcademicYearGrade,
 } from "../services";
 import { optionFetchType, showTypes } from "hooks/useFetch";
 
@@ -29,14 +31,23 @@ const useAcademicYear = (options: optionFetchType = { showInfo: "none" }) => {
     return callEndpoint(disableAcademicYear(idAcademicYear));
   }, []);
 
-  const finish = useCallback((idAcademicYear: number, showType = options.showInfo) => {
-    return callEndpoint(finishAcademicYear(idAcademicYear), showType);
-  }, []);
+  const finish = useCallback(
+    (idAcademicYear: number, showType = options.showInfo) => {
+      return callEndpoint(finishAcademicYear(idAcademicYear), showType);
+    },
+    []
+  );
 
-  const finishWithPartials = useCallback((idAcademicYear: number, showType = options.showInfo) => {
-    return callEndpoint(finishAcademicYearWithPartials(idAcademicYear), showType);
-  }, []);
-  
+  const finishWithPartials = useCallback(
+    (idAcademicYear: number, showType = options.showInfo) => {
+      return callEndpoint(
+        finishAcademicYearWithPartials(idAcademicYear),
+        showType
+      );
+    },
+    []
+  );
+
   const disablePartial = useCallback((idAcademicYearPartial: number) => {
     return callEndpoint(disableAcademicYearPartial(idAcademicYearPartial));
   }, []);
@@ -53,6 +64,32 @@ const useAcademicYear = (options: optionFetchType = { showInfo: "none" }) => {
     return callEndpoint(getAcademicYear(idAcademicYear));
   }, []);
 
+  const registerStudentsInGrade = useCallback(
+    (idAcademicYear: number, idGrade: number, idStudents: string[]) => {
+      return callEndpoint(
+        registerStudentsInAcademicYearGrade({
+          idAcademicYear,
+          idGrade,
+          idStudents,
+        })
+      );
+    },
+    []
+  );
+
+  const unregisterStudentsInGrade = useCallback(
+    (idAcademicYear: number, idGrade: number, idStudents: string[]) => {
+      return callEndpoint(
+        unregisterStudentsInAcademicYearGrade({
+          idAcademicYear,
+          idGrade,
+          idStudents,
+        })
+      );
+    },
+    []
+  );
+
   return {
     get,
     getAll,
@@ -63,6 +100,8 @@ const useAcademicYear = (options: optionFetchType = { showInfo: "none" }) => {
     disablePartial,
     reactivatePartial,
     finishWithPartials,
+    registerStudentsInGrade,
+    unregisterStudentsInGrade,
     loading,
   };
 };

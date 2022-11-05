@@ -5,6 +5,7 @@ import type {
   AcademicYearResponse,
   AcademicYear,
 } from "../models";
+import { StudentGradeListResponse } from "../models/StudentGrade.model";
 
 const headers = {
   Authorization: `Bearer ${getToken()}`,
@@ -81,7 +82,7 @@ export const finishAcademicYearWithPartials = (idAcademicYear: number) => {
 export const disableAcademicYearPartial = (idAcademicYear: number) => {
   const controller = loadAbort();
   const call = api.delete<ApiResponse>(
-    `AcademicYear/AcademicYearPartial/${idAcademicYear}`,
+    `AcademicYear/Partial/${idAcademicYear}`,
     {
       signal: controller.signal,
       headers,
@@ -94,7 +95,7 @@ export const disableAcademicYearPartial = (idAcademicYear: number) => {
 export const reactivateAcademicYearPartial = (idAcademicYear: number) => {
   const controller = loadAbort();
   const call = api.post<ApiResponse>(
-    `AcademicYear/AcademicYearPartial/Reactivate/${idAcademicYear}`,
+    `AcademicYear/Partial/Reactivate/${idAcademicYear}`,
     null,
     {
       signal: controller.signal,
@@ -108,8 +109,75 @@ export const reactivateAcademicYearPartial = (idAcademicYear: number) => {
 export const finishAcademicYearPartial = (idAcademicYear: number) => {
   const controller = loadAbort();
   const call = api.post<ApiResponse>(
-    `AcademicYear/AcademicYearPartial/Finish/${idAcademicYear}`,
+    `AcademicYear/Partial/Finish/${idAcademicYear}`,
     null,
+    {
+      signal: controller.signal,
+      headers,
+    }
+  );
+
+  return { call, controller };
+};
+
+export type getStudentsByAcademicYearAndGradeProps = {
+  idAcademicYear: number;
+  idGrade?: number;
+};
+
+export const getStudentsByAcademicYearAndGrade = ({
+  idAcademicYear,
+  idGrade,
+}: getStudentsByAcademicYearAndGradeProps) => {
+  const controller = loadAbort();
+  const call = api.get<StudentGradeListResponse>(
+    "Student/ByAcademicYearAndGrade",
+    {
+      signal: controller.signal,
+      headers,
+      params: {
+        idAcademicYear: idAcademicYear,
+        idGrade: idGrade,
+      },
+    }
+  );
+
+  return { call, controller };
+};
+
+export type registerStudentsInAcademicYearGradeProps = {
+  idAcademicYear: number;
+  idGrade: number;
+  idStudents: string[];
+};
+
+export const registerStudentsInAcademicYearGrade = ({
+  idAcademicYear,
+  idGrade,
+  idStudents,
+}: registerStudentsInAcademicYearGradeProps) => {
+  const controller = loadAbort();
+  const call = api.post<StudentGradeListResponse>(
+    `AcademicYear/${idAcademicYear}/Grade/${idGrade}/Students`,
+    idStudents,
+    {
+      signal: controller.signal,
+      headers,
+    }
+  );
+
+  return { call, controller };
+};
+
+export const unregisterStudentsInAcademicYearGrade = ({
+  idAcademicYear,
+  idGrade,
+  idStudents,
+}: registerStudentsInAcademicYearGradeProps) => {
+  const controller = loadAbort();
+  const call = api.put<StudentGradeListResponse>(
+    `AcademicYear/${idAcademicYear}/Grade/${idGrade}/Students`,
+    idStudents,
     {
       signal: controller.signal,
       headers,
