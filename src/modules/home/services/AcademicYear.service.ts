@@ -4,7 +4,9 @@ import type {
   AcademicYearListResponse,
   AcademicYearResponse,
   AcademicYear,
+  StudentStatListResponse,
 } from "../models";
+import { StudentApprovedListResponse } from "../models/StudentApproved.model";
 
 const headers = {
   Authorization: `Bearer ${getToken()}`,
@@ -182,6 +184,50 @@ export const unregisterStudentsInAcademicYearGrade = ({
       headers,
     }
   );
+
+  return { call, controller };
+};
+
+export type getTopStudentsByAcademicYearProps = {
+  idAcademicYear: number;
+};
+
+export const getTopStudentsByAcademicYear = ({
+  idAcademicYear,
+}: getTopStudentsByAcademicYearProps) => {
+  const controller = loadAbort();
+  const call = api.get<StudentStatListResponse>(
+    `AcademicYear/${idAcademicYear}/TopStudents`,
+    {
+      signal: controller.signal,
+      headers,
+    }
+  );
+
+  return { call, controller };
+};
+
+export const getStudentsPassedAndFailed = ({
+  idAcademicYear,
+}: getTopStudentsByAcademicYearProps) => {
+  const controller = loadAbort();
+  const call = api.get<StudentApprovedListResponse>(
+    `AcademicYear/${idAcademicYear}/StudentsPassedAndFailed`,
+    {
+      signal: controller.signal,
+      headers,
+    }
+  );
+
+  return { call, controller };
+};
+
+export const getAcademicYearAverage = () => {
+  const controller = loadAbort();
+  const call = api.get<StudentStatListResponse>(`AcademicYear/Average`, {
+    signal: controller.signal,
+    headers,
+  });
 
   return { call, controller };
 };
