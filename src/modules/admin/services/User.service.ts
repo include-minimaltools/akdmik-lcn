@@ -55,3 +55,13 @@ export const deleteUser = (username: string) => {
 
   return { controller, call };
 };
+
+export const getUserCount = () => {
+  const controller = loadAbort();
+  const call = api.get<ApiResponse>("Auth/User/Count", {
+    signal: controller.signal,
+    headers,
+  });
+
+  return { call, controller };
+}

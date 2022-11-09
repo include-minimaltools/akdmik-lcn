@@ -1,3 +1,4 @@
+import { LeftOutlined, SaveOutlined } from "@ant-design/icons";
 import {
   Button,
   Col,
@@ -7,7 +8,10 @@ import {
   InputNumber,
   Row,
   Spin,
+  Table,
 } from "antd";
+import { ColumnsType } from "antd/lib/table";
+import { useTable } from "context";
 import { useStudent } from "hooks";
 import { Course } from "modules/pensum/models";
 import { FC, useCallback } from "react";
@@ -32,6 +36,7 @@ const CourseScoreContent: FC<CourseScoreContentProps> = ({
   schoolReport,
   schoolReportDetails,
 }) => {
+  const { reload } = useTable();
   const { idAcademicYearPartial } = useParams();
   const navigate = useNavigate();
   const {
@@ -60,6 +65,8 @@ const CourseScoreContent: FC<CourseScoreContentProps> = ({
       };
 
       await createSchoolReport({ schoolReportDetails, schoolReport });
+
+      reload();
     },
     []
   );
@@ -86,6 +93,8 @@ const CourseScoreContent: FC<CourseScoreContentProps> = ({
         schoolReportDetails: newSchoolReportDetails,
         schoolReport: newSchoolReport,
       });
+
+      reload();
     },
     [schoolReportDetails, schoolReport]
   );
@@ -115,6 +124,33 @@ const CourseScoreContent: FC<CourseScoreContentProps> = ({
     initialValues[idCourse] = score;
   });
 
+  const columns: ColumnsType<Course> = [
+    {
+      title: "Asignatura",
+      key: "course",
+      dataIndex: "name",
+      align: "center",
+    },
+    {
+      title: "Notas",
+      key: "idCourse",
+      dataIndex: "idCourse",
+      render: (_, { idCourse }) => (
+        <Item
+          name={idCourse}
+          rules={[
+            {
+              required: true,
+              message: `La nota no puede quedar vacía`,
+            },
+          ]}
+        >
+          <InputNumber style={{ width: 75 }} min={0} max={100} />
+        </Item>
+      ),
+    },
+  ];
+
   return (
     <Spin spinning={loading}>
       <Form
@@ -122,25 +158,12 @@ const CourseScoreContent: FC<CourseScoreContentProps> = ({
         onFinish={!!schoolReport ? updateReport : createReport}
         initialValues={initialValues}
       >
-        <Row justify="center" align="bottom" gutter={[30, 30]}>
-          {courses.map(({ name, idCourse }) => (
-            <Col flex={"500px"}>
-              <Item
-                label={name}
-                name={idCourse}
-                rules={[
-                  {
-                    required: true,
-                    message: `La nota no puede quedar vacía`,
-                  },
-                ]}
-              >
-                <InputNumber style={{ width: 75 }} min={0} max={100} />
-              </Item>
-            </Col>
-          ))}
-        </Row>
-        <Divider />
+        <Table
+          dataSource={courses}
+          columns={columns}
+          pagination={{ hideOnSinglePage: true, pageSize: 100 }}
+        />
+        <Divider>Información adicional del parcial</Divider>
         <Row justify="space-around" gutter={[10, 0]} style={{ width: "100%" }}>
           <Col>
             <Item
@@ -188,12 +211,22 @@ const CourseScoreContent: FC<CourseScoreContentProps> = ({
         <Divider />
         <Row justify="center" style={{ width: "100%" }} gutter={[30, 30]}>
           <Col>
-            <Button type="default" onClick={() => navigate("/academic-year")}>
+            <Button
+              tabIndex={-1}
+              type="default"
+              onClick={() => navigate("/academic-year")}
+              icon={<LeftOutlined />}
+            >
               Regresar
             </Button>
           </Col>
           <Col>
-            <Button type="primary" htmlType="submit" loading={studentLoading}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={studentLoading}
+              icon={<SaveOutlined />}
+            >
               Guardar cambios
             </Button>
           </Col>

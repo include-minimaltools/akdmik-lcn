@@ -127,3 +127,13 @@ export const updateSchoolReportWithDetails = (body: createSchoolReportWithDetail
 
   return { call, controller };
 };
+
+export const getStudentCount = () => {
+  const controller = loadAbort();
+  const call = api.get<ApiResponse>("Student/Count", {
+    signal: controller.signal,
+    headers,
+  });
+
+  return { call, controller };
+}

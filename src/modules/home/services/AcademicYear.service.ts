@@ -231,3 +231,13 @@ export const getAcademicYearAverage = () => {
 
   return { call, controller };
 };
+
+export const getAcademicYearCount = () => {
+  const controller = loadAbort();
+  const call = api.get<ApiResponse>("AcademicYear/Count", {
+    signal: controller.signal,
+    headers,
+  });
+
+  return { call, controller };
+}

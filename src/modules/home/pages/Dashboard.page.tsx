@@ -1,79 +1,61 @@
-import { Pie } from "@ant-design/charts";
-import { Column, Line } from "@ant-design/plots";
-import { Card, Select, Statistic } from "antd";
-import { useEffect, useState } from "react";
+import { Card, Statistic } from "antd";
+import { useService } from "hooks";
+import { getUserCount } from "modules/admin/services";
+import { getCourseCount } from "modules/pensum/services";
+import { getParentCount } from "modules/student/services";
+import { getStudentCount } from "services";
 import {
   AcademicYearAverageCard,
   StudentsPassedAndFailed,
 } from "../components";
 import TopStudentsCard from "../components/TopStudentsCard.component";
+import { getAcademicYearCount } from "../services";
 import { DashboardStyle } from "../style/Dashboard.style";
 
-const data = [
-  {
-    type: "Aprobados",
-    value: 27,
-  },
-  {
-    type: "Reprobados",
-    value: 25,
-  },
-];
-
-
-
 const DashboardPage = () => {
+  const [students, studentLoading] = useService(getStudentCount);
+  const [courses, courseLoading] = useService(getCourseCount);
+  const [parents, parentLoading] = useService(getParentCount);
+  const [users, userLoading] = useService(getUserCount);
+  const [academicYear, academicYearLoading] = useService(getAcademicYearCount);
+
   return (
     <DashboardStyle>
       <div className="statistics-section">
         <Card hoverable>
           <Statistic
             title="Estudiantes Activos"
-            value={11.28}
-            precision={2}
-            // valueStyle={{ color: "#3f8600" }}
-            // prefix={<ArrowUpOutlined />}
-            // suffix="%"
+            valueStyle={{ color: "#3f8600" }}
+            loading={studentLoading}
+            value={students}
           />
         </Card>
         <Card hoverable>
           <Statistic
             title="Asignaturas"
-            value={11.28}
-            precision={2}
-            // valueStyle={{ color: "#3f8600" }}
-            // prefix={<ArrowUpOutlined />}
-            // suffix="%"
+            value={courses}
+            loading={courseLoading}
           />
         </Card>
         <Card hoverable>
           <Statistic
             title="Familiares"
-            value={11.28}
-            precision={2}
-            // valueStyle={{ color: "#3f8600" }}
-            // prefix={<ArrowUpOutlined />}
-            // suffix="%"
+            value={parents}
+            loading={parentLoading}
           />
         </Card>
         <Card hoverable>
           <Statistic
             title="Años Lectivos"
-            value={11.28}
-            precision={2}
-            // valueStyle={{ color: "#3f8600" }}
-            // prefix={<ArrowUpOutlined />}
-            // suffix="%"
+            value={academicYear}
+            loading={academicYearLoading}
           />
         </Card>
         <Card hoverable>
           <Statistic
             title="Usuarios Activos"
-            value={11.28}
-            precision={2}
-            // valueStyle={{ color: "#3f8600" }}
-            // prefix={<ArrowUpOutlined />}
-            // suffix="%"
+            value={users}
+            loading={userLoading}
           />
         </Card>
       </div>

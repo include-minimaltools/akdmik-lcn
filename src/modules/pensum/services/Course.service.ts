@@ -55,3 +55,13 @@ export const deleteCourse = (idCourse: number) => {
 
   return { controller, call };
 };
+
+export const getCourseCount = () => {
+  const controller = loadAbort();
+  const call = api.get<ApiResponse>("Course/Count", {
+    signal: controller.signal,
+    headers,
+  });
+
+  return { call, controller };
+}

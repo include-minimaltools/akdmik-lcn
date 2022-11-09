@@ -55,3 +55,14 @@ export const deleteParent = (idParent: number) => {
 
   return { controller, call };
 };
+
+export const getParentCount = () => {
+  const controller = loadAbort();
+  const call = api.get<ApiResponse>("Parent/Count", {
+    signal: controller.signal,
+    headers,
+  });
+
+  return { call, controller };
+}
+
