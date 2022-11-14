@@ -105,10 +105,15 @@ export const getStudentByAcademicYearPartialAndGrade = ({
 
 export type createSchoolReportWithDetailsProps = {
   schoolReport: Omit<SchoolReport, "idSchoolReport">;
-  schoolReportDetails: Omit<SchoolReportDetail, "idSchoolReportDetail" | "idSchoolReport">[];
+  schoolReportDetails: Omit<
+    SchoolReportDetail,
+    "idSchoolReportDetail" | "idSchoolReport"
+  >[];
 };
 
-export const createSchoolReportWithDetails = (body: createSchoolReportWithDetailsProps) => {
+export const createSchoolReportWithDetails = (
+  body: createSchoolReportWithDetailsProps
+) => {
   const controller = loadAbort();
   const call = api.post<ApiResponse>("Student/SchoolReport", body, {
     signal: controller.signal,
@@ -118,7 +123,9 @@ export const createSchoolReportWithDetails = (body: createSchoolReportWithDetail
   return { call, controller };
 };
 
-export const updateSchoolReportWithDetails = (body: createSchoolReportWithDetailsProps) => {
+export const updateSchoolReportWithDetails = (
+  body: createSchoolReportWithDetailsProps
+) => {
   const controller = loadAbort();
   const call = api.put<ApiResponse>("Student/SchoolReport", body, {
     signal: controller.signal,
@@ -136,4 +143,28 @@ export const getStudentCount = () => {
   });
 
   return { call, controller };
-}
+};
+
+export type saveGradeSchoolReportWithDetailsProps = {
+  body: createSchoolReportWithDetailsProps[];
+  idAcademicYear: number;
+  idGrade: number;
+};
+
+export const saveGradeSchoolReportWithDetails = ({
+  body,
+  idAcademicYear,
+  idGrade,
+}: saveGradeSchoolReportWithDetailsProps) => {
+  const controller = loadAbort();
+  const call = api.post<ApiResponse>(
+    `Student/AcademicYear/${idAcademicYear}/Grade/${idGrade}/SchoolReport`,
+    body,
+    {
+      signal: controller.signal,
+      headers,
+    }
+  );
+
+  return { call, controller };
+};

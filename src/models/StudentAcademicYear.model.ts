@@ -2,7 +2,7 @@ import { ApiResponse } from "models";
 import { SchoolReport, SchoolReportDetail } from "modules/home/models";
 
 export type StudentAcademicYearGrade = {
-  idStudentAcademicYear: string;
+  idStudentAcademicYear: number;
   idStudent: string;
   name: string;
   lastName: string;

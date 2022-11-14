@@ -5,6 +5,8 @@ import type {
   AcademicYearResponse,
   AcademicYear,
   StudentStatListResponse,
+  AcademicYearInfo,
+  AcademicYearInfoResponse,
 } from "../models";
 import { StudentApprovedListResponse } from "../models/StudentApproved.model";
 
@@ -240,4 +242,23 @@ export const getAcademicYearCount = () => {
   });
 
   return { call, controller };
-}
+};
+
+export type getInfoByIdAcademicYearPartialProps = {
+  idAcademicYearPartial: number;
+};
+
+export const getInfoByIdAcademicYearPartial = ({
+  idAcademicYearPartial,
+}: getInfoByIdAcademicYearPartialProps) => {
+  const controller = loadAbort();
+  const call = api.get<AcademicYearInfoResponse>(
+    `AcademicYear/GetInfoByIdAcademicYearPartial/${idAcademicYearPartial}`,
+    {
+      signal: controller.signal,
+      headers,
+    }
+  );
+
+  return { call, controller };
+};

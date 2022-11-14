@@ -24,7 +24,7 @@ const { Item } = Form;
 type CourseScoreContentProps = {
   courses: Course[];
   loading: boolean;
-  idStudentAcademicYear: string;
+  idStudentAcademicYear: number;
   schoolReport?: SchoolReport;
   schoolReportDetails?: SchoolReportDetail[];
 };

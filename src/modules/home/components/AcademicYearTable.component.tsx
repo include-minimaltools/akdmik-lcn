@@ -124,11 +124,12 @@ const AcademicYearTable: FC<academicYearTableProps> = ({
   const props: TableProps<AcademicYear> = {
     columns,
     expandable: {
-      expandedRowRender: ({ academicYearPartials, status }) => (
+      expandedRowRender: ({ academicYearPartials, status, idAcademicYear }) => (
         <AcademicYearPartialTable
           academicYearPartials={academicYearPartials}
           loading={false}
           disabled={status !== "P"}
+          idAcademicYear={idAcademicYear}
         />
       ),
     },

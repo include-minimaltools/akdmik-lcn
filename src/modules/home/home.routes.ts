@@ -2,7 +2,7 @@ const HomeRoutes = {
   home: "/",
   academicYear: "/academic-year",
   academicYearStudent: "/academic-year-student",
-  registryScore: "/registry-score"
+  registryScore: "/academic-year/:idAcademicYear/partial/:idAcademicYearPartial"
 };
 
 export default HomeRoutes;

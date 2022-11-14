@@ -17,12 +17,14 @@ export type academicYearPartialTableProps = {
   academicYearPartials?: AcademicYearPartial[];
   loading: boolean;
   disabled?: boolean;
+  idAcademicYear: number;
 };
 
 const AcademicYearPartialTable: FC<academicYearPartialTableProps> = ({
   academicYearPartials,
   loading,
   disabled = true,
+  idAcademicYear,
 }) => {
   const { reload } = useTable();
   const navigate = useNavigate();
@@ -58,7 +60,7 @@ const AcademicYearPartialTable: FC<academicYearPartialTableProps> = ({
       fixed: "right",
       dataIndex: "idAcademicYearPartial",
       width: 200,
-      render: (idAcademicYearPartial, academicYearPartial) => (
+      render: (idAcademicYearPartial, { status }) => (
         <Row justify="space-around">
           <Tooltip
             color="#fff"
@@ -70,7 +72,7 @@ const AcademicYearPartialTable: FC<academicYearPartialTableProps> = ({
               size="middle"
               loading={eventLoading}
               icon={<CheckCircleOutlined />}
-              disabled={academicYearPartial.status !== "P" || disabled}
+              disabled={status !== "P" || disabled}
               onClick={async () => {
                 const { error } = await finishPartial(idAcademicYearPartial);
                 error || reload();
@@ -88,8 +90,14 @@ const AcademicYearPartialTable: FC<academicYearPartialTableProps> = ({
               size="middle"
               loading={eventLoading}
               icon={<AuditOutlined />}
-              disabled={academicYearPartial.status !== "P" || disabled}
-              onClick={() => navigate([HomeRoutes.registryScore, idAcademicYearPartial].join("/"))}
+              disabled={status !== "P" || disabled}
+              onClick={() =>
+                navigate(
+                  HomeRoutes.registryScore
+                    .replace(":idAcademicYear", idAcademicYear.toString())
+                    .replace(":idAcademicYearPartial", idAcademicYearPartial)
+                )
+              }
             />
           </Tooltip>
           <Tooltip
@@ -103,7 +111,7 @@ const AcademicYearPartialTable: FC<academicYearPartialTableProps> = ({
               size="middle"
               loading={eventLoading}
               icon={<ReloadOutlined />}
-              disabled={academicYearPartial.status !== "C" || disabled}
+              disabled={status !== "C" || disabled}
               onClick={async () => {
                 const { error } = await reactivatePartial(
                   idAcademicYearPartial
@@ -128,11 +136,7 @@ const AcademicYearPartialTable: FC<academicYearPartialTableProps> = ({
                 error || reload();
               }}
               danger
-              disabled={
-                academicYearPartial.status === "C" ||
-                academicYearPartial.status === "F" ||
-                disabled
-              }
+              disabled={status === "C" || status === "F" || disabled}
             />
           </Tooltip>
         </Row>

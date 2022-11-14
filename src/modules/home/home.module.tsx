@@ -22,7 +22,7 @@ const AuthModule = () => {
         element={<AcademicYearStudentPage />}
       />
       <Route
-        path={HomeRoutes.registryScore + "/:idAcademicYearPartial"}
+        path={HomeRoutes.registryScore}
         element={<RegistryScorePage />}
       />
       <Route path={PublicRoutes.login} element={<Navigate to="/" />} />

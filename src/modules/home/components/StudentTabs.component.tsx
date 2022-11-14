@@ -36,7 +36,7 @@ const StudentTabs: FC<StudentTabsProps> = ({ idGrade }) => {
         options: students?.map((x) => x.name) || [],
       },
       {
-        label: "ApellidoS de Estudiante",
+        label: "Apellidos de Estudiante",
         options: students?.map((x) => x.lastName) || [],
       },
       {

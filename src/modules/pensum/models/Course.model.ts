@@ -1,7 +1,7 @@
 import { ApiResponse } from "models";
 
 export type Course = {
-  idCourse: string;
+  idCourse: number;
   area: string;
   idArea: number;
   name: string;
