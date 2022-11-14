@@ -262,3 +262,4 @@ export const getInfoByIdAcademicYearPartial = ({
 
   return { call, controller };
 };
+

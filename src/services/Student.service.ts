@@ -168,3 +168,24 @@ export const saveGradeSchoolReportWithDetails = ({
 
   return { call, controller };
 };
+
+export type getSchoolReportProps = {
+  year: number;
+  idStudent: string;
+};
+
+export const getSchoolReport = ({
+  year,
+  idStudent,
+}: getSchoolReportProps) => {
+  const controller = loadAbort();
+  const call = api.get<ApiResponse>(
+    `Student/SchoolReport/${idStudent}_${year}.pdf`,
+    {
+      signal: controller.signal,
+      headers,
+    }
+  );
+
+  return { call, controller };
+};

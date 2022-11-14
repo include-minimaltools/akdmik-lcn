@@ -5,6 +5,7 @@ import { lazy } from "react";
 
 import HomeRoutes from "./home.routes";
 
+const ReportPage = lazy(() => import("./pages/Reports.page"));
 const DashboardPage = lazy(() => import("./pages/Dashboard.page"));
 const AcademicYearPage = lazy(() => import("./pages/AcademicYear.page"));
 const AcademicYearStudentPage = lazy(
@@ -15,16 +16,15 @@ const RegistryScorePage = lazy(() => import("./pages/RegistryScore.page"));
 const AuthModule = () => {
   return (
     <Routes>
+      <Route path={HomeRoutes.reports} element={<ReportPage />} />
       <Route path={HomeRoutes.home} element={<DashboardPage />} />
       <Route path={HomeRoutes.academicYear} element={<AcademicYearPage />} />
       <Route
         path={HomeRoutes.academicYearStudent + "/:idAcademicYear"}
         element={<AcademicYearStudentPage />}
       />
-      <Route
-        path={HomeRoutes.registryScore}
-        element={<RegistryScorePage />}
-      />
+      <Route path={HomeRoutes.registryScore} element={<RegistryScorePage />} />
+
       <Route path={PublicRoutes.login} element={<Navigate to="/" />} />
     </Routes>
   );

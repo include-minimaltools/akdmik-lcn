@@ -1,7 +1,13 @@
 import type { Student } from "models";
 import { useFetch } from "hooks";
 import { useCallback } from "react";
-import { createSchoolReportWithDetailsProps, saveGradeSchoolReportWithDetails, saveGradeSchoolReportWithDetailsProps } from "services";
+import {
+  createSchoolReportWithDetailsProps,
+  getSchoolReport,
+  getSchoolReportProps,
+  saveGradeSchoolReportWithDetails,
+  saveGradeSchoolReportWithDetailsProps,
+} from "services";
 import {
   createSchoolReportWithDetails,
   createStudent,
@@ -66,7 +72,9 @@ const useStudent = (options: optionFetchType = {}) => {
     },
     []
   );
-
+  const generateSchoolReport = useCallback((args: getSchoolReportProps) => {
+    return callEndpoint(getSchoolReport(args));
+  }, []);
 
   return {
     get,
@@ -78,6 +86,7 @@ const useStudent = (options: optionFetchType = {}) => {
     createSchoolReport,
     updateSchoolReport,
     saveGradeSchoolReport,
+    generateSchoolReport,
     remove,
     loading,
   };

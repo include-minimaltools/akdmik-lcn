@@ -29,6 +29,11 @@ const menuExample: MenuType[] = [
     icon: "CalendarOutlined",
   },
   {
+    label: "Boletines Escolares",
+    key: "/reports",
+    icon: "PrinterOutlined",
+  },
+  {
     key: "administrator",
     label: "Administración",
     icon: "SlidersOutlined",
