@@ -40,10 +40,11 @@ const ReportsPage = () => {
 
   return (
     <>
-      <Form onFinish={onFinish}>
-        <Row justify="space-around" style={{ margin: "2rem" }}>
+      <Form onFinish={onFinish} layout="vertical">
+        <Row justify="space-around" style={{ margin: "2rem" }} align="middle">
           <Item
             name="year"
+            label="Año Lectivo"
             rules={[{ required: true, message: "Seleccione el año lectivo" }]}
           >
             <Select
@@ -65,6 +66,7 @@ const ReportsPage = () => {
           </Item>
           <Item
             name="idStudent"
+            label="Carnet de Estudiante"
             rules={[{ required: true, message: "Seleccione el estudiante" }]}
           >
             <Select
@@ -84,7 +86,7 @@ const ReportsPage = () => {
               )}
             />
           </Item>
-          <Item name="extension" initialValue="pdf">
+          <Item name="extension" initialValue="pdf" label="Tipo">
             <Select
               showSearch
               allowClear
