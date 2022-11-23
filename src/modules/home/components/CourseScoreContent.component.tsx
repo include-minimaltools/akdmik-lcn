@@ -136,15 +136,7 @@ const CourseScoreContent: FC<CourseScoreContentProps> = ({
       key: "idCourse",
       dataIndex: "idCourse",
       render: (_, { idCourse }) => (
-        <Item
-          name={idCourse}
-          rules={[
-            {
-              required: true,
-              message: `La nota no puede quedar vacía`,
-            },
-          ]}
-        >
+        <Item name={idCourse}>
           <InputNumber style={{ width: 75 }} min={0} max={100} />
         </Item>
       ),
@@ -169,12 +161,6 @@ const CourseScoreContent: FC<CourseScoreContentProps> = ({
             <Item
               label={"Conducta"}
               name={"conduct"}
-              rules={[
-                {
-                  required: true,
-                  message: `La conducta no puede quedar vacía`,
-                },
-              ]}
             >
               <InputNumber style={{ width: 75 }} min={0} max={100} />
             </Item>
@@ -183,12 +169,6 @@ const CourseScoreContent: FC<CourseScoreContentProps> = ({
             <Item
               label={"Ausencias"}
               name={"absences"}
-              rules={[
-                {
-                  required: true,
-                  message: `El numero de ausencias no puede quedar vacío`,
-                },
-              ]}
             >
               <InputNumber style={{ width: 75 }} min={0} max={100} />
             </Item>
@@ -197,12 +177,6 @@ const CourseScoreContent: FC<CourseScoreContentProps> = ({
             <Item
               label={"Tardanzas"}
               name={"tardiness"}
-              rules={[
-                {
-                  required: true,
-                  message: `El numero de tardanzas no puede quedar vacía`,
-                },
-              ]}
             >
               <InputNumber style={{ width: 75 }} min={0} max={100} />
             </Item>
