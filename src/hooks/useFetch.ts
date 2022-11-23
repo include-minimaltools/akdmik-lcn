@@ -37,7 +37,8 @@ const useFetch = ({ showInfo }: optionFetchType = { showInfo: "none" }) => {
         });
     } catch (error) {
       if (error instanceof CanceledError<ErrorResponse>) {
-        message.info("Se ha cancelado la petición de datos");
+        if(showInfo !== "none")
+          message.info("Se ha cancelado la petición de datos");
       } else if (error instanceof AxiosError<ErrorResponse>) {
         const { response } = error as AxiosError<ErrorResponse>;
         result.error = true;
